@@ -1,0 +1,40 @@
+{
+  "Logging": { //日志配置节点
+    "LogLevel": { //默认筛选器
+      "Default": "Debug", //默认日志类别
+      "System": "Information" //日志类别为System
+    },
+    "Console": { //针对日志提供程序Console的配置
+      "LogLevel": { //日志筛选器
+        "Default": "Information", //默认日志类别//Error
+        "LoggingSample.Program": "Debug" //日志类别为LoggingSample.Program的筛选器
+      }
+    }
+  },
+  "Server": {
+    "Name": "sample",
+    "Ip": "192.168.3.11",
+    "Port": "5003",
+    "EnableHttp": true,//是否开启http
+    "Security": {
+      "Whitelist": "*", //白名单
+      "BlackList": "" //黑名单
+    },
+    "KongAddress": "192.168.190.114:8001"//网关kong 地址
+  },
+  "Consul": {
+    "ConnectionString": "192.168.180.55:8500",
+    "IsHealthCheck": true
+  },
+  "RabbitMQ": {
+    "Host": "192.168.190.4",
+    "UserName": "admin",
+    "Password": "qwe123QWE",
+    "RetryCount": 3,
+    "FailCount": 1
+  },
+  "Redis": {
+    "IpAddress": "192.168.180.55",
+    "Password": "qwe123QWE"
+  }
+}
