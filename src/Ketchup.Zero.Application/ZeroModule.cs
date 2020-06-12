@@ -1,6 +1,8 @@
 ﻿using System;
+using Autofac;
 using Ketchup.Core;
 using Ketchup.Core.Modules;
+using Ketchup.Profession.ORM.EntityFramworkCore.Context;
 using Microsoft.AspNetCore.Routing;
 
 namespace Ketchup.Zero.Application
@@ -19,7 +21,7 @@ namespace Ketchup.Zero.Application
 
         protected override void RegisterModule(ContainerBuilderWrapper builder)
         {
-            base.RegisterModule(builder);
+            builder.ContainerBuilder.RegisterType<ZeroDbContext>().As<IEfCoreContext>();
         }
     }
 }
