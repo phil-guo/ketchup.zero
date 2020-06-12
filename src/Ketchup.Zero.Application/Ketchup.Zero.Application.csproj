@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="protos\Permission.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="protos\Permission.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Ketchup.Consul" Version="1.0.0" />
     <PackageReference Include="Ketchup.Core" Version="0.1.0" />
     <PackageReference Include="Ketchup.Grpc" Version="0.1.0" />
