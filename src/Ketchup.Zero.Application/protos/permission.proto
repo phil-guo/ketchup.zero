@@ -32,7 +32,7 @@ message MenuDto{
 }
 
 message MenutList {
-	repeated MenuDto results = 1;
+	repeated MenuDto Datas = 1;
 	int32 Total=2;
 }
 

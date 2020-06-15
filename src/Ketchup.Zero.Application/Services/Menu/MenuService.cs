@@ -48,7 +48,7 @@ namespace Ketchup.Zero.Application.Services.Menu
 
             ConvertToEntities(result).ForEach(item =>
             {
-                date.Results.Add(item);
+                date.Datas.Add(item);
             });
 
             return Task.FromResult(date);
