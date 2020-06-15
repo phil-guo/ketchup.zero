@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="protos\Permission.proto" />
+    <None Remove="protos\menu.proto" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="protos\Permission.proto" />
+    <Compile Include="protos\menu.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +17,13 @@
     <PackageReference Include="Ketchup.Core" Version="0.1.0" />
     <PackageReference Include="Ketchup.Grpc" Version="0.1.0" />
     <PackageReference Include="Ketchup.Profession" Version="0.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Menu\" />
+    <Folder Include="Services\Operate\" />
+    <Folder Include="Services\User\" />
+    <Folder Include="Services\Role\" />
   </ItemGroup>
 
 </Project>

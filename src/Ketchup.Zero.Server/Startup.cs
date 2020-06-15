@@ -36,7 +36,7 @@ namespace Ketchup.Zero.Server
         public void ConfigureContainer(ContainerBuilder builder)
         {
             // Add things to the Autofac ContainerBuilder.
-            builder.AddCoreService().AddEventBusService().RegisterModules();
+            builder.AddCoreService().RegisterModules();
         }
 
         public void ConfigureProductionContainer(ContainerBuilder builder)
@@ -51,7 +51,6 @@ namespace Ketchup.Zero.Server
             // Set up the application for development.
 
             ServiceLocator.Current = app.ApplicationServices.GetAutofacRoot();
-
             app.UseRouting();
             app.UseKetchup();
         }
@@ -61,9 +60,7 @@ namespace Ketchup.Zero.Server
             // Set up the application for staging.
             ServiceLocator.Current = app.ApplicationServices.GetAutofacRoot();
             app.UseRouting();
-
             app.UseKetchup();
-
         }
     }
 }
