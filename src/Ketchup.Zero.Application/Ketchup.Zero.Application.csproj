@@ -1,15 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="protos\menu.proto" />
+    <Protobuf Include="protos\permission.proto" GrpcServices="Both" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="protos\menu.proto" />
+    <PackageReference Include="Grpc.Tools" Version="2.27.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Menu\" />
     <Folder Include="Services\Operate\" />
     <Folder Include="Services\User\" />
     <Folder Include="Services\Role\" />

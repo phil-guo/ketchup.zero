@@ -11,7 +11,7 @@ namespace Ketchup.Zero.Application
     {
         public override void Initialize(KetchupPlatformContainer builder)
         {
-            base.Initialize(builder);
+            
         }
 
         public override void MapGrpcService(IEndpointRouteBuilder endpointRoute)

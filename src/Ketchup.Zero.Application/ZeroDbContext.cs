@@ -1,17 +1,21 @@
 ﻿using System.Collections.Concurrent;
 using Ketchup.Profession.Domain.Implementation;
 using Ketchup.Profession.ORM.EntityFramworkCore.Context;
+using Ketchup.Zero.Application.Config;
 using Ketchup.Zero.Application.Domain;
 using Ketchup.Zero.Application.Seed;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Ketchup.Zero.Application
 {
     public class ZeroDbContext : DbContext, IEfCoreContext
     {
+        public ZeroDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
         private readonly ConcurrentDictionary<string, object> _allSet = new ConcurrentDictionary<string, object>();
-
-
         public DbSet<SysMenu> SysMenus { get; set; }
         public DbSet<SysOperate> SysOperates { get; set; }
         public DbSet<SysRole> SysRoles { get; set; }
@@ -38,6 +42,25 @@ namespace Ketchup.Zero.Application
             modelBuilder.ApplyConfiguration(new SeedRole());
             modelBuilder.ApplyConfiguration(new SeedMenu());
             modelBuilder.ApplyConfiguration(new SeedSysUser());
+        }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    base.OnConfiguring(optionsBuilder);
+        //    var appConfig = new AppConfig();
+        //    optionsBuilder.UseMySql(appConfig.Zero.Connection);
+        //}
+    }
+
+    public class BabyContextFactory : IDesignTimeDbContextFactory<ZeroDbContext>
+    {
+        public ZeroDbContext CreateDbContext(string[] args)
+        {
+            var appConfig = new AppConfig();
+            var optionsBuilder = new DbContextOptionsBuilder<ZeroDbContext>();
+            //optionsBuilder.UseMySql("Data Source=192.168.180.55;port=3306;userid=root;password=qwe123QWE;database=ketchup_zero;Charset=utf8;");
+            optionsBuilder.UseMySql(appConfig.Zero.Connection);
+            return new ZeroDbContext(optionsBuilder.Options);
         }
     }
 }

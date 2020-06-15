@@ -11,16 +11,19 @@
       }
     }
   },
+  "Zero": {
+    "Connection": "Data Source=192.168.180.55;port=3306;userid=root;password=qwe123QWE;database=ketchup_zero;Charset=utf8;"
+  },
   "Server": {
     "Name": "sample",
     "Ip": "192.168.3.11",
     "Port": "5003",
-    "EnableHttp": true,//是否开启http
+    "EnableHttp": true, //是否开启http
     "Security": {
       "Whitelist": "*", //白名单
       "BlackList": "" //黑名单
     },
-    "KongAddress": "192.168.190.114:8001"//网关kong 地址
+    "KongAddress": "192.168.190.114:8001" //网关kong 地址
   },
   "Consul": {
     "ConnectionString": "192.168.180.55:8500",

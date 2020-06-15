@@ -12,22 +12,22 @@ namespace Ketchup.Zero.Application.Seed
             {
                 Id = 1,
                 Name = "添加",
-                Remark = "1001"
+                Unique = 1001,
             }, new SysOperate()
             {
                 Id = 2,
                 Name = "编辑",
-                Remark = "1002"
+                Unique = 1002,
             }, new SysOperate()
             {
                 Id = 3,
                 Name = "查询",
-                Remark = "1003"
+                Unique = 1003,
             }, new SysOperate()
             {
                 Id = 4,
                 Name = "删除",
-                Remark = "1004"
+                Unique = 1004,
             });
         }
     }
