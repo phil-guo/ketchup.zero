@@ -13,13 +13,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Ketchup.Consul" Version="1.0.0" />
-    <PackageReference Include="Ketchup.Core" Version="0.1.0" />
-    <PackageReference Include="Ketchup.Grpc" Version="0.1.0" />
-    <PackageReference Include="Ketchup.Profession" Version="0.1.6" />
+    <PackageReference Include="KetchupCore" Version="0.1.0-preview" />
+    <PackageReference Include="KetchupCore.Consul" Version="0.1.0-preview" />
+    <PackageReference Include="KetchupCore.Grpc" Version="0.1.0-preview" />
+    <PackageReference Include="KetchupCore.Profession" Version="0.1.0-preview" />
   </ItemGroup>
 
   <ItemGroup>
