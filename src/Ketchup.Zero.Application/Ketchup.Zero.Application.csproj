@@ -19,13 +19,17 @@
     <PackageReference Include="Ketchup.Consul" Version="1.0.0" />
     <PackageReference Include="Ketchup.Core" Version="0.1.0" />
     <PackageReference Include="Ketchup.Grpc" Version="0.1.0" />
-    <PackageReference Include="Ketchup.Profession" Version="0.1.4" />
+    <PackageReference Include="Ketchup.Profession" Version="0.1.6" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Services\Operate\" />
     <Folder Include="Services\User\" />
     <Folder Include="Services\Role\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Update="protos\permission.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>

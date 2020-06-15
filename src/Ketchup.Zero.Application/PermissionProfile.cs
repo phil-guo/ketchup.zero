@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using Ketchup.Permission;
 using Ketchup.Zero.Application.Domain;
 
@@ -11,7 +8,8 @@ namespace Ketchup.Zero.Application
     {
         public PermissionProfile()
         {
-            CreateMap<MenuDto, SysMenu>();
+            CreateMap<SysMenu, MenuDto>()
+                .ForMember(destination => destination.Icon, opt => opt.NullSubstitute(""));
         }
     }
 }

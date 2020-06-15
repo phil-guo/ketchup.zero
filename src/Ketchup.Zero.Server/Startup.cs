@@ -6,6 +6,7 @@ using Ketchup.Core.Utilities;
 using Ketchup.Grpc.Internal.Intercept;
 using Ketchup.Zero.Application;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -23,7 +24,8 @@ namespace Ketchup.Zero.Server
         {
             // Add things to the service collection.
             services.AddGrpc(grpc => grpc.Interceptors.Add<HystrixCommandIntercept>());
-            services.AddDbContext<ZeroDbContext>();
+            var appConfig = new Application.Config.AppConfig();
+            services.AddDbContext<ZeroDbContext>(op => op.UseMySql(appConfig.Zero.Connection));
         }
 
         public void ConfigureDevelopmentServices(IServiceCollection services)
@@ -31,7 +33,8 @@ namespace Ketchup.Zero.Server
             // Add things to the service collection that are only for the
             // development environment.
             services.AddGrpc(grpc => grpc.Interceptors.Add<HystrixCommandIntercept>());
-            services.AddDbContext<ZeroDbContext>();
+            var appConfig = new Application.Config.AppConfig();
+            services.AddDbContext<ZeroDbContext>(op => op.UseMySql(appConfig.Zero.Connection));
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
