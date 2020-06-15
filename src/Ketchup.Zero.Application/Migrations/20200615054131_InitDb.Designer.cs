@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ketchup.Zero.Application.Migrations
 {
     [DbContext(typeof(ZeroDbContext))]
-    [Migration("20200615035409_InitDb")]
+    [Migration("20200615054131_InitDb")]
     partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,29 +133,25 @@ namespace Ketchup.Zero.Application.Migrations
                         {
                             Id = 1,
                             Name = "添加",
-                            Remark = "1001",
-                            Unique = 0
+                            Unique = 1001
                         },
                         new
                         {
                             Id = 2,
                             Name = "编辑",
-                            Remark = "1002",
-                            Unique = 0
+                            Unique = 1002
                         },
                         new
                         {
                             Id = 3,
                             Name = "查询",
-                            Remark = "1003",
-                            Unique = 0
+                            Unique = 1003
                         },
                         new
                         {
                             Id = 4,
                             Name = "删除",
-                            Remark = "1004",
-                            Unique = 0
+                            Unique = 1004
                         });
                 });
 
@@ -205,6 +201,36 @@ namespace Ketchup.Zero.Application.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("sys_roleMenu");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MenuId = 1,
+                            Operates = "[]",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            MenuId = 2,
+                            Operates = "[1,2,3,4]",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            MenuId = 3,
+                            Operates = "[1,2,3]",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            MenuId = 4,
+                            Operates = "[1,2,3,4]",
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("Ketchup.Zero.Application.Domain.SysUser", b =>

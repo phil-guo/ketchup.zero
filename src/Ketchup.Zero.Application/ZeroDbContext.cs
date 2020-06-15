@@ -42,6 +42,7 @@ namespace Ketchup.Zero.Application
             modelBuilder.ApplyConfiguration(new SeedRole());
             modelBuilder.ApplyConfiguration(new SeedMenu());
             modelBuilder.ApplyConfiguration(new SeedSysUser());
+            modelBuilder.ApplyConfiguration(new SeedRoleMenu());
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -58,7 +59,6 @@ namespace Ketchup.Zero.Application
         {
             var appConfig = new AppConfig();
             var optionsBuilder = new DbContextOptionsBuilder<ZeroDbContext>();
-            //optionsBuilder.UseMySql("Data Source=192.168.180.55;port=3306;userid=root;password=qwe123QWE;database=ketchup_zero;Charset=utf8;");
             optionsBuilder.UseMySql(appConfig.Zero.Connection);
             return new ZeroDbContext(optionsBuilder.Options);
         }

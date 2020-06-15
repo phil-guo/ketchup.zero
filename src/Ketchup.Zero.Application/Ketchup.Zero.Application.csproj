@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="protos\permission.proto" GrpcServices="Both" />
+    <Protobuf Include="protos\*.proto" GrpcServices="Both" />
   </ItemGroup>
 
   <ItemGroup>

@@ -102,16 +102,27 @@ namespace Ketchup.Zero.Application.Migrations
                 columns: new[] { "Id", "Name", "Remark", "Unique" },
                 values: new object[,]
                 {
-                    { 1, "添加", "1001", 0 },
-                    { 2, "编辑", "1002", 0 },
-                    { 3, "查询", "1003", 0 },
-                    { 4, "删除", "1004", 0 }
+                    { 1, "添加", null, 1001 },
+                    { 2, "编辑", null, 1002 },
+                    { 3, "查询", null, 1003 },
+                    { 4, "删除", null, 1004 }
                 });
 
             migrationBuilder.InsertData(
                 table: "sys_role",
                 columns: new[] { "Id", "Name", "Remark" },
                 values: new object[] { 1, "管理员", null });
+
+            migrationBuilder.InsertData(
+                table: "sys_roleMenu",
+                columns: new[] { "Id", "MenuId", "Operates", "RoleId" },
+                values: new object[,]
+                {
+                    { 1, 1, "[]", 1 },
+                    { 2, 2, "[1,2,3,4]", 1 },
+                    { 3, 3, "[1,2,3]", 1 },
+                    { 4, 4, "[1,2,3,4]", 1 }
+                });
 
             migrationBuilder.InsertData(
                 table: "sys_user",
