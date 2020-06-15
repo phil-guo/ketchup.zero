@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Update="protos\permission.proto" GrpcServices="Server" />
+    <Protobuf Update="protos\menu.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>

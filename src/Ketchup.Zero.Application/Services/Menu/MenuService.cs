@@ -12,6 +12,7 @@ using Ketchup.Profession.AutoMapper;
 using Ketchup.Profession.ORM.EntityFramworkCore.Repository;
 using Ketchup.Profession.Specification;
 using Ketchup.Zero.Application.Domain;
+using Ketchup.Zero.Application.Services.Menu.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ketchup.Zero.Application.Services.Menu
@@ -20,12 +21,20 @@ namespace Ketchup.Zero.Application.Services.Menu
     public class MenuService : RpcMenu.RpcMenuBase
     {
         private readonly IEfCoreRepository<SysMenu, int> _menu;
+        private readonly IEfCoreRepository<SysRoleMenu, int> _roleMenu;
 
-        public MenuService(IEfCoreRepository<SysMenu, int> menu)
+        public MenuService(IEfCoreRepository<SysMenu, int> menu, IEfCoreRepository<SysRoleMenu, int> roleMenu)
         {
             _menu = menu;
+            _roleMenu = roleMenu;
         }
 
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         [KongRoute(Name = "menus.PageSerach", Paths = new[] { "/zero/menus/PageSerach" })]
         public override Task<MenutList> PageSerach(SearchMenu request, ServerCallContext context)
         {
@@ -54,6 +63,12 @@ namespace Ketchup.Zero.Application.Services.Menu
             return Task.FromResult(date);
         }
 
+        /// <summary>
+        /// 创建或修改
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         [KongRoute(Name = "menus.CreateOrEdit", Paths = new[] { "/zero/menus/CreateOrEdit" })]
         public override Task<MenuDto> CreateOrEdit(MenuDto request, ServerCallContext context)
         {
@@ -81,6 +96,38 @@ namespace Ketchup.Zero.Application.Services.Menu
             return Task.FromResult(menu.MapTo<MenuDto>());
         }
 
+        /// <summary>
+        /// 根据角色获取菜单
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        [KongRoute(Name = "menus.GetMenusByRole", Paths = new[] { "/zero/menus/GetMenusByRole" })]
+        public override Task<MenusRoleReponse> GetMenusByRole(MenusRoleRequest request, ServerCallContext context)
+        {
+            var result = new MenusRoleReponse();
+            var tree = GetRoleOfMenus(request.RoleId);
+
+            result.Datas.Add(new MenusByRole() { Id = 0, Icon = "home", Title = "首页", Path = "/index" });
+
+
+            tree.ForEach(item =>
+            {
+                var model = new MenusByRole { Id = item.Id, Title = item.Title, Icon = item.Icon, Path = "" };
+
+                if (item.Children.Count > 0)
+                    item.Children.ForEach(child =>
+                    {
+                        model.Children.Add(new MenusByRole
+                        { Id = child.Id, Icon = child.Icon, Path = child.Path + "?id=" + child.Id, Title = child.Title });
+                    });
+
+                result.Datas.Add(model);
+            });
+
+            return Task.FromResult(result);
+        }
+
         protected Expression<Func<SysMenu, bool>> SearchFilter(SearchMenu search)
         {
             Expression<Func<SysMenu, bool>> getFilter = item => true;
@@ -97,6 +144,57 @@ namespace Ketchup.Zero.Application.Services.Menu
         protected List<MenuDto> ConvertToEntities(List<SysMenu> entities)
         {
             return entities.MapTo<List<MenuDto>>();
+        }
+
+        private List<RoleMenuDto> GetRoleOfMenus(int roleId)
+        {
+            var datas = GetRoleMenu(roleId);
+
+            var listMenus = new List<RoleMenuDto>();
+            datas.ForEach(item =>
+            {
+                listMenus.Add(new RoleMenuDto
+                {
+                    ParentId = item.ParentId,
+                    Id = item.Id,
+                    Title = item.Name,
+                    Icon = item.Icon,
+                    Path = item.Url,
+                    Operates = item.Operates
+                });
+            });
+
+            var tree = listMenus.Where(item => item.ParentId == 0).ToList();
+
+            tree.ForEach(item => { BuildMeunsRecursiveTree(listMenus, item); });
+
+            return tree;
+        }
+
+        private List<SysMenu> GetRoleMenu(int roleId)
+        {
+            var menus = new List<SysMenu>();
+            var roleMenusByRole = _roleMenu.GetAll()
+                .Where(item => item.RoleId == roleId)
+                .OrderByDescending(item => item.MenuId)
+                .ToList();
+
+            if (roleMenusByRole.Count == 0)
+                return menus;
+            roleMenusByRole.ForEach(rm =>
+            {
+                var menu = _menu.SingleOrDefault(item => item.Id == rm.MenuId);
+                menus.Add(menu);
+            });
+            return menus;
+        }
+
+        private void BuildMeunsRecursiveTree(List<RoleMenuDto> list, RoleMenuDto currentTree)
+        {
+            list.ForEach(item =>
+            {
+                if (item.ParentId == currentTree.Id) currentTree.Children.Add(item);
+            });
         }
     }
 }
