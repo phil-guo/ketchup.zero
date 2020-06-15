@@ -15,9 +15,9 @@
     "Connection": "Data Source=192.168.180.55;port=3306;userid=root;password=qwe123QWE;database=ketchup_zero;Charset=utf8;"
   },
   "Server": {
-    "Name": "sample",
+    "Name": "zero",
     "Ip": "192.168.3.11",
-    "Port": "5003",
+    "Port": "5004",
     "EnableHttp": true, //是否开启http
     "Security": {
       "Whitelist": "*", //白名单
@@ -28,16 +28,5 @@
   "Consul": {
     "ConnectionString": "192.168.180.55:8500",
     "IsHealthCheck": true
-  },
-  "RabbitMQ": {
-    "Host": "192.168.190.4",
-    "UserName": "admin",
-    "Password": "qwe123QWE",
-    "RetryCount": 3,
-    "FailCount": 1
-  },
-  "Redis": {
-    "IpAddress": "192.168.180.55",
-    "Password": "qwe123QWE"
   }
 }

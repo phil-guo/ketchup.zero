@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Grpc.Core;
+using Ketchup.Core.Kong.Attribute;
 using Ketchup.Permission;
 using Ketchup.Profession.AutoMapper;
 using Ketchup.Profession.ORM.EntityFramworkCore.Repository;
@@ -22,6 +23,7 @@ namespace Ketchup.Zero.Application.Services.Menu
             _menu = menu;
         }
 
+        [KongRoute(Name = nameof(PageSerach), Paths = new[] { "/zero/menus/PageSerach" })]
         public override Task<MenutList> PageSerach(SearchMenu request, ServerCallContext context)
         {
             var query = _menu.GetAll().AsNoTracking();
@@ -49,6 +51,7 @@ namespace Ketchup.Zero.Application.Services.Menu
             return Task.FromResult(date);
         }
 
+        [KongRoute(Name = nameof(CreateOrEdit), Paths = new[] { "/zero/menus/CreateOrEdit" })]
         public override Task<MenuDto> CreateOrEdit(MenuDto request, ServerCallContext context)
         {
             var menu = request.MapTo<SysMenu>();
