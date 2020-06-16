@@ -19,6 +19,7 @@ namespace Ketchup.Zero.Server
         {
             AppConfig.Configuration = (IConfigurationRoot)configuration;
         }
+
         public void ConfigureServices(IServiceCollection services)
         {
             // Add things to the service collection.
