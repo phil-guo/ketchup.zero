@@ -10,6 +10,9 @@ namespace Ketchup.Zero.Application
         {
             CreateMap<SysMenu, MenuDto>()
                 .ForMember(destination => destination.Icon, opt => opt.NullSubstitute(""));
+
+            CreateMap<SysRole, RoleDto>();
+
         }
     }
 }
