@@ -1,0 +1,41 @@
+﻿syntax = "proto3";
+
+package Ketchup.Permission;
+
+service RpcRole{
+	//创建或修改
+	rpc CreateOrEdit(RoleDto) returns (RoleDto);
+	//分页查询
+	rpc PageSerach(SearchRole) returns(RoleList);	
+}
+
+message RoleDto{
+
+	
+	///菜单名称
+	string Name=2;
+
+	///菜单地址
+	string Url=3;
+
+	///层级
+	int32 Level=4;
+
+	///菜单权限(list<int /> json)
+	string Operates=5;
+
+	/// 菜单图标
+	string Icon=6;	
+
+	//主键
+	int32 Id=7;
+}
+message RoleList {
+	repeated RoleDto Datas = 1;
+	int32 Total=2;
+}
+message SearchRole{
+	string RoleName=1;
+	int32 PageIndex=2;
+	int32 PageMax=3;
+}
