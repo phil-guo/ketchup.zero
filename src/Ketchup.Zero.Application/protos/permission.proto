@@ -1,16 +1,17 @@
 ﻿syntax = "proto3";
 
-package Ketchup.Menu;
+package Ketchup.Permission;
 
+//菜单
 service RpcMenu{
 	//创建或修改
-	rpc CreateOrEdit(MenuDto) returns (MenuDto);
+	rpc CreateOrEditMenu(MenuDto) returns (MenuDto);
 	//分页查询
-	rpc PageSerach(SearchMenu) returns(MenutList);
+	rpc PageSerachMenu(SearchMenu) returns(MenutList);
 	//根据角色获取菜单
 	rpc GetMenusByRole(MenusRoleRequest)returns(MenusRoleReponse);
 	//设置权限时获取菜单及其菜单的功能
-	rpc GetRoleMenus(MenusRoleRequest)returns(RoleMenuReponse);
+	rpc GetMenusSetRole(MenusRoleRequest)returns(RoleMenuReponse);
 }
 
 message MenuDto{
@@ -65,4 +66,40 @@ message MenuModel{
 	string Id=1;
 	string Lable=2;
 	repeated MenuModel Children=3;
+}
+
+//功能
+service RpcOperate{
+	//创建或修改
+	rpc CreateOrEditOperate(OperateDto) returns(OperateDto);
+	//分页查询
+	rpc PageSerachOperate(SearchOperate)returns(OperatesReponse);
+	//获取菜单下的功能
+	rpc GetMenuOfOperate(MenuOfOperateRequest)returns(MenuOfOperateReponse);
+}
+
+message SearchOperate{
+	int32 PageIndex=2;
+	int32 PageMax=3;
+}
+message OperatesReponse{
+	repeated OperateDto Datas=1;
+	int32 Total=2;
+}
+
+message OperateDto{
+	int32 Id=1;
+	//名称
+	string Name=2;
+	//索引标识
+	int32 Unique=3;
+	string Remark=4;
+}
+
+message MenuOfOperateReponse{
+	repeated string Datas=1;
+}
+message MenuOfOperateRequest{
+	int32 RoleId=1;
+	int32 MenuId=2;
 }

@@ -20,13 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Operate\" />
     <Folder Include="Services\User\" />
     <Folder Include="Services\Role\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Update="protos\menu.proto" GrpcServices="Server" />
+    <Protobuf Update="protos\permission.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>

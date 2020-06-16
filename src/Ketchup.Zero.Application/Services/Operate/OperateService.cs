@@ -1,0 +1,132 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Grpc.Core;
+using Ketchup.Core.Attributes;
+using Ketchup.Core.Kong.Attribute;
+using Ketchup.Permission;
+using Ketchup.Profession.AutoMapper;
+using Ketchup.Profession.ORM.EntityFramworkCore.Repository;
+using Ketchup.Zero.Application.Domain;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+
+namespace Ketchup.Zero.Application.Services.Operate
+{
+    [Service(Name = "Ketchup.Menu.RpcOperate")]
+    public class OperateService : RpcOperate.RpcOperateBase
+    {
+        private readonly IEfCoreRepository<SysOperate, int> _operate;
+        private readonly IEfCoreRepository<SysRoleMenu, int> _roleMenu;
+
+        public OperateService(IEfCoreRepository<SysOperate, int> operate, IEfCoreRepository<SysRoleMenu, int> roleMenu)
+        {
+            _operate = operate;
+            _roleMenu = roleMenu;
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        [KongRoute(Name = "operates.PageSerachOperate", Tags = new[] { "operate" }, Paths = new[] { "/zero/operates/PageSerachOperate" })]
+        public override Task<OperatesReponse> PageSerachOperate(SearchOperate request, ServerCallContext context)
+        {
+            var query = _operate.GetAll().AsNoTracking();
+
+            if (SearchFilter(request) != null)
+                query = query.Where(SearchFilter(request));
+
+            query = OrderFilter() != null
+                ? query.OrderByDescending(OrderFilter())
+                : query.OrderByDescending(item => item.Id);
+
+            var total = query.Count();
+
+            var result = query.Skip(request.PageMax * (request.PageIndex - 1))
+                .Take(request.PageMax)
+                .ToList();
+
+            var date = new OperatesReponse { Total = total };
+
+            ConvertToEntities(result).ForEach(item =>
+            {
+                date.Datas.Add(item);
+            });
+
+            return Task.FromResult(date);
+        }
+
+        /// <summary>
+        /// 创建或修改
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        [KongRoute(Name = "operates.CreateOrEditOperate", Tags = new[] { "operate" }, Paths = new[] { "/zero/operates/CreateOrEditOperate" })]
+        public override Task<OperateDto> CreateOrEditOperate(OperateDto request, ServerCallContext context)
+        {
+            SysOperate data = null;
+            if (request.Id == 0)
+            {
+                var entity = _operate.GetAll().OrderBy(item => item.Id).LastOrDefault();
+                if (entity != null)
+                {
+                    request.Unique += entity.Unique;
+                }
+                else
+                {
+                    request.Unique = 10001;
+                }
+
+                data = _operate.Insert(request.MapTo<SysOperate>());
+            }
+            else
+            {
+                data = _operate.SingleOrDefault(item => item.Id == request.Id);
+                data.Name = request.Name;
+                data = _operate.Update(data);
+            }
+
+            return Task.FromResult(data.MapTo<OperateDto>());
+        }
+
+        /// <summary>
+        /// 获取菜单的功能
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        [KongRoute(Name = "operates.GetMenuOfOperate", Tags = new[] { "operate" }, Paths = new[] { "/zero/operates/GetMenuOfOperate" })]
+        public override Task<MenuOfOperateReponse> GetMenuOfOperate(MenuOfOperateRequest request, ServerCallContext context)
+        {
+            var roleMenu = _roleMenu.SingleOrDefault(item => item.RoleId == request.RoleId && item.MenuId == request.MenuId);
+            var idNos = new MenuOfOperateReponse();
+            JsonConvert.DeserializeObject<List<int>>(roleMenu?.Operates).ForEach(id =>
+            {
+                var operate = _operate.SingleOrDefault(item => item.Id == id);
+                idNos.Datas.Add(operate?.Remark);
+            });
+            return base.GetMenuOfOperate(request, context);
+        }
+
+        protected Expression<Func<SysOperate, bool>> SearchFilter(SearchOperate search)
+        {
+            return null;
+        }
+
+        protected Expression<Func<SysOperate, int>> OrderFilter()
+        {
+            return null;
+        }
+
+        protected List<OperateDto> ConvertToEntities(List<SysOperate> entities)
+        {
+            return entities.MapTo<List<OperateDto>>();
+        }
+    }
+}
