@@ -12,6 +12,9 @@ namespace Ketchup.Zero.Application
                 .ForMember(destination => destination.Icon, opt => opt.NullSubstitute(""));
 
             CreateMap<SysRole, RoleDto>();
+            CreateMap<SysOperate, OperateDto>()
+                .ForMember(destination => destination.Name, opt => opt.NullSubstitute(""))
+                .ForMember(destination => destination.Remark, opt => opt.NullSubstitute(""));
 
         }
     }
