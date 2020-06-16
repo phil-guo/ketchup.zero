@@ -114,6 +114,7 @@ service RpcSysUser{
 	//分页查询
 	rpc PageSerachSysUser(SearchSysUser)returns(SearchSysUserResponse);
 	rpc RemoveSysUser(RemoveRequest)returns(RemoveResponse);
+	rpc SetRole(SetRoleDto)returns(RemoveResponse);
 
 }
 message SysUserDto{
@@ -130,7 +131,10 @@ message SearchSysUserResponse{
 	repeated SysUserDto Datas=1;
 	int32 Total=2;
 }
-
+message SetRoleDto{
+	int32 Id=1;
+	int32 RoleId=2;
+}
 //删除model
 message RemoveRequest{
 	int32 Id=1;
