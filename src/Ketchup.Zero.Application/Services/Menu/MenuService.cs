@@ -113,13 +113,13 @@ namespace Ketchup.Zero.Application.Services.Menu
 
             tree.ForEach(item =>
             {
-                var model = new MenusByRole { Id = item.Id, Title = item.Title, Icon = item.Icon, Path = "" };
+                var model = new MenusByRole { Id = item.Id, Title = item.Title, Icon = item.Icon ?? "", Path = "" };
 
                 if (item.Children.Count > 0)
                     item.Children.ForEach(child =>
                     {
                         model.Children.Add(new MenusByRole
-                        { Id = child.Id, Icon = child.Icon, Path = child.Path + "?id=" + child.Id, Title = child.Title });
+                        { Id = child.Id, Icon = child.Icon ?? "", Path = child.Path + "?id=" + child.Id, Title = child.Title });
                     });
 
                 result.Datas.Add(model);
