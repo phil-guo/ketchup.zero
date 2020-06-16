@@ -7,6 +7,7 @@ service RpcRole{
 	rpc CreateOrEdit(RoleDto) returns (RoleDto);
 	//分页查询
 	rpc PageSerach(SearchRole) returns(RoleList);	
+	rpc RemoveRole(RemoveRoleRequest)returns(RemoveRoleResponse);
 }
 
 message RoleDto{
@@ -27,4 +28,11 @@ message SearchRole{
 	string RoleName=1;
 	int32 PageIndex=2;
 	int32 PageMax=3;
+}
+//删除model
+message RemoveRoleRequest{
+	int32 Id=1;
+}
+message RemoveRoleResponse{
+	bool IsComplete=1;
 }

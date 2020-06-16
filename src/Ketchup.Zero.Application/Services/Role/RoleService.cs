@@ -82,9 +82,28 @@ namespace Ketchup.Zero.Application.Services.Role
              }
              return Task.FromResult(role.MapTo<RoleDto>());
          }
+         [KongRoute(Name = "sysRoles.RemoveRole", Tags = new[] { "sysUser" }, Paths = new[] { "/zero/roles/RemoveRole" })]
+         public override Task<RemoveRoleResponse> RemoveRole(RemoveRoleRequest request, ServerCallContext context)
+         {
+             var response = new RemoveRoleResponse();
+             try
+             {
+                 if (request.Id == 1)
+                     throw new RpcException(new Status(StatusCode.InvalidArgument, "管理员角色不能被删除"));
+
+                 _role.Delete(request.Id);
+                 response.IsComplete = true;
+                 return Task.FromResult(response);
+             }
+             catch
+             {
+                 response.IsComplete = false;
+                 return Task.FromResult(response);
+             }
+         }
         #region
         //todo 需要优化
-        
+
         protected Expression<Func<SysRole, bool>> SearchFilter(SearchRole search)
         {
             Expression<Func<SysRole, bool>> getFilter = item => true;
