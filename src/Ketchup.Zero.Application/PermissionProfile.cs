@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Ketchup.Permission;
+using Ketchup.Menu;
 using Ketchup.Zero.Application.Domain;
 
 namespace Ketchup.Zero.Application
