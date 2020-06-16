@@ -12,6 +12,8 @@ service RpcMenu{
 	rpc GetMenusByRole(MenusRoleRequest)returns(MenusRoleReponse);
 	//设置权限时获取菜单及其菜单的功能
 	rpc GetMenusSetRole(MenusRoleRequest)returns(RoleMenuReponse);
+	//删除
+	rpc RemoveMenu(RemoveRequest)returns(RemoveResponse);
 }
 
 message MenuDto{
@@ -68,6 +70,7 @@ message MenuModel{
 	repeated MenuModel Children=3;
 }
 
+
 //功能
 service RpcOperate{
 	//创建或修改
@@ -76,6 +79,7 @@ service RpcOperate{
 	rpc PageSerachOperate(SearchOperate)returns(OperatesResponse);
 	//获取菜单下的功能
 	rpc GetMenuOfOperate(MenuOfOperateRequest)returns(MenuOfOperateReponse);
+	rpc RemoveOperate(RemoveRequest)returns(RemoveResponse);
 }
 
 message SearchOperate{
@@ -102,12 +106,14 @@ message MenuOfOperateRequest{
 	int32 MenuId=2;
 }
 
+
 //系统用户
 service RpcSysUser{
 	//创建或修改
 	rpc CreateOrEditSysUser(SysUserDto) returns(SysUserDto);
 	//分页查询
 	rpc PageSerachSysUser(SearchSysUser)returns(SearchSysUserResponse);
+	rpc RemoveSysUser(RemoveRequest)returns(RemoveResponse);
 }
 message SysUserDto{
 	int32 Id=1;
@@ -122,4 +128,12 @@ message SearchSysUser{
 message SearchSysUserResponse{
 	repeated SysUserDto Datas=1;
 	int32 Total=2;
+}
+
+//删除model
+message RemoveRequest{
+	int32 Id=1;
+}
+message RemoveResponse{
+	bool IsComplete=1;
 }

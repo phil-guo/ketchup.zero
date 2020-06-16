@@ -209,6 +209,23 @@ namespace Ketchup.Zero.Application.Services.Menu
             return Task.FromResult(result);
         }
 
+        [KongRoute(Name = "menus.RemoveMenu", Paths = new[] { "/zero/menus/RemoveMenu" }, Tags = new[] { "menu" })]
+        public override Task<RemoveResponse> RemoveMenu(RemoveRequest request, ServerCallContext context)
+        {
+            var response = new RemoveResponse();
+            try
+            {
+                _menu.Delete(request.Id);
+                response.IsComplete = true;
+                return Task.FromResult(response);
+            }
+            catch
+            {
+                response.IsComplete = false;
+                return Task.FromResult(response);
+            }
+        }
+
         protected Expression<Func<SysMenu, bool>> SearchFilter(SearchMenu search)
         {
             Expression<Func<SysMenu, bool>> getFilter = item => true;

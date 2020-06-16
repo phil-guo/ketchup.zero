@@ -114,6 +114,22 @@ namespace Ketchup.Zero.Application.Services.Operate
             return base.GetMenuOfOperate(request, context);
         }
 
+        public override Task<RemoveResponse> RemoveOperate(RemoveRequest request, ServerCallContext context)
+        {
+            var response = new RemoveResponse();
+            try
+            {
+                _operate.Delete(request.Id);
+                response.IsComplete = true;
+                return Task.FromResult(response);
+            }
+            catch
+            {
+                response.IsComplete = false;
+                return Task.FromResult(response);
+            }
+        }
+
         protected Expression<Func<SysOperate, bool>> SearchFilter(SearchOperate search)
         {
             return null;
