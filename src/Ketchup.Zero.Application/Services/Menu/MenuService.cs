@@ -39,7 +39,7 @@ namespace Ketchup.Zero.Application.Services.Menu
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "menus.PageSerach", Paths = new[] { "/zero/menus/PageSerach" })]
+        [KongRoute(Name = "menus.PageSerach", Paths = new[] { "/zero/menus/PageSerach" },Tags = new []{"menu"})]
         public override Task<MenutList> PageSerach(SearchMenu request, ServerCallContext context)
         {
             var query = _menu.GetAll().AsNoTracking();
@@ -73,7 +73,7 @@ namespace Ketchup.Zero.Application.Services.Menu
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "menus.CreateOrEdit", Paths = new[] { "/zero/menus/CreateOrEdit" })]
+        [KongRoute(Name = "menus.CreateOrEdit", Paths = new[] { "/zero/menus/CreateOrEdit" }, Tags = new[] { "menu" })]
         public override Task<MenuDto> CreateOrEdit(MenuDto request, ServerCallContext context)
         {
             var menu = request.MapTo<SysMenu>();
@@ -106,7 +106,7 @@ namespace Ketchup.Zero.Application.Services.Menu
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "menus.GetMenusByRole", Paths = new[] { "/zero/menus/GetMenusByRole" })]
+        [KongRoute(Name = "menus.GetMenusByRole", Paths = new[] { "/zero/menus/GetMenusByRole" }, Tags = new[] { "menu" })]
         public override Task<MenusRoleReponse> GetMenusByRole(MenusRoleRequest request, ServerCallContext context)
         {
             var result = new MenusRoleReponse();
@@ -138,7 +138,7 @@ namespace Ketchup.Zero.Application.Services.Menu
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "menus.GetRoleMenus", Paths = new[] { "/zero/menus/GetRoleMenus" })]
+        [KongRoute(Name = "menus.GetRoleMenus", Paths = new[] { "/zero/menus/GetRoleMenus" }, Tags = new[] { "menu" })]
         public override Task<RoleMenuReponse> GetRoleMenus(MenusRoleRequest request, ServerCallContext context)
         {
             var result = new RoleMenuReponse();
