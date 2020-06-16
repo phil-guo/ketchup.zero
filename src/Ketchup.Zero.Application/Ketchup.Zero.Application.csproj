@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="protos\role.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Grpc.Tools" Version="2.27.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -22,7 +26,6 @@
   <ItemGroup>
     <Folder Include="Services\Operate\" />
     <Folder Include="Services\User\" />
-    <Folder Include="Services\Role\" />
   </ItemGroup>
 
   <ItemGroup>
