@@ -9,6 +9,9 @@ using Microsoft.Extensions.Hosting;
 
 namespace Ketchup.Zero.Server
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Program
     {
         public static void Main(string[] args)
