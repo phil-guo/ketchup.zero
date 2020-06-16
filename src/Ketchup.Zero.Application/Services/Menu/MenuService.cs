@@ -17,7 +17,7 @@ using Newtonsoft.Json;
 
 namespace Ketchup.Zero.Application.Services.Menu
 {
-    [Service(Name = "Ketchup.Menu.RpcMenu")]
+    [Service(Name = "Ketchup.Permission.RpcMenu")]
     public class MenuService : RpcMenu.RpcMenuBase
     {
         private readonly IEfCoreRepository<SysMenu, int> _menu;

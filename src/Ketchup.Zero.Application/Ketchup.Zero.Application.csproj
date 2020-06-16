@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\User\" />
     <Folder Include="Services\Role\" />
   </ItemGroup>
 

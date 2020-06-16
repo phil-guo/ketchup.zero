@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace Ketchup.Zero.Application.Services.Operate
 {
-    [Service(Name = "Ketchup.Menu.RpcOperate")]
+    [Service(Name = "Ketchup.Permission.RpcOperate")]
     public class OperateService : RpcOperate.RpcOperateBase
     {
         private readonly IEfCoreRepository<SysOperate, int> _operate;

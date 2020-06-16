@@ -79,14 +79,13 @@ service RpcOperate{
 }
 
 message SearchOperate{
-	int32 PageIndex=2;
-	int32 PageMax=3;
+	int32 PageIndex=1;
+	int32 PageMax=2;
 }
 message OperatesReponse{
 	repeated OperateDto Datas=1;
 	int32 Total=2;
 }
-
 message OperateDto{
 	int32 Id=1;
 	//名称
@@ -95,11 +94,32 @@ message OperateDto{
 	int32 Unique=3;
 	string Remark=4;
 }
-
 message MenuOfOperateReponse{
 	repeated string Datas=1;
 }
 message MenuOfOperateRequest{
 	int32 RoleId=1;
 	int32 MenuId=2;
+}
+
+//系统用户
+service RpcSysUser{
+	//创建或修改
+	rpc CreateOrEditSysUser(SysUserDto) returns(SysUserDto);
+	//分页查询
+	rpc PageSerachSysUser(SearchSysUser)returns(SearchSysUserReponse);
+}
+message SysUserDto{
+	int32 Id=1;
+	int32 RoleId=2;
+	string UserName=3;
+	string Passwrod=4;
+}
+message SearchSysUser{
+	int32 PageIndex=1;
+	int32 PageMax=2;
+}
+message SearchSysUserReponse{
+	repeated SysUserDto Datas=1;
+	int32 Total=2;
 }
