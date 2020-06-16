@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Ketchup.Core.Attributes;
@@ -11,7 +10,6 @@ using Ketchup.Permission;
 using Ketchup.Profession.AutoMapper;
 using Ketchup.Profession.ORM.EntityFramworkCore.Repository;
 using Ketchup.Profession.Utilis;
-using Ketchup.Zero.Application.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ketchup.Zero.Application.Services.SysUser
