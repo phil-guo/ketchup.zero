@@ -73,7 +73,7 @@ service RpcOperate{
 	//创建或修改
 	rpc CreateOrEditOperate(OperateDto) returns(OperateDto);
 	//分页查询
-	rpc PageSerachOperate(SearchOperate)returns(OperatesReponse);
+	rpc PageSerachOperate(SearchOperate)returns(OperatesResponse);
 	//获取菜单下的功能
 	rpc GetMenuOfOperate(MenuOfOperateRequest)returns(MenuOfOperateReponse);
 }
@@ -82,7 +82,7 @@ message SearchOperate{
 	int32 PageIndex=1;
 	int32 PageMax=2;
 }
-message OperatesReponse{
+message OperatesResponse{
 	repeated OperateDto Datas=1;
 	int32 Total=2;
 }
@@ -107,19 +107,19 @@ service RpcSysUser{
 	//创建或修改
 	rpc CreateOrEditSysUser(SysUserDto) returns(SysUserDto);
 	//分页查询
-	rpc PageSerachSysUser(SearchSysUser)returns(SearchSysUserReponse);
+	rpc PageSerachSysUser(SearchSysUser)returns(SearchSysUserResponse);
 }
 message SysUserDto{
 	int32 Id=1;
 	int32 RoleId=2;
 	string UserName=3;
-	string Passwrod=4;
+	string Password=4;
 }
 message SearchSysUser{
 	int32 PageIndex=1;
 	int32 PageMax=2;
 }
-message SearchSysUserReponse{
+message SearchSysUserResponse{
 	repeated SysUserDto Datas=1;
 	int32 Total=2;
 }

@@ -34,7 +34,7 @@ namespace Ketchup.Zero.Application.Services.Operate
         /// <param name="context"></param>
         /// <returns></returns>
         [KongRoute(Name = "operates.PageSerachOperate", Tags = new[] { "operate" }, Paths = new[] { "/zero/operates/PageSerachOperate" })]
-        public override Task<OperatesReponse> PageSerachOperate(SearchOperate request, ServerCallContext context)
+        public override Task<OperatesResponse> PageSerachOperate(SearchOperate request, ServerCallContext context)
         {
             var query = _operate.GetAll().AsNoTracking();
 
@@ -51,7 +51,7 @@ namespace Ketchup.Zero.Application.Services.Operate
                 .Take(request.PageMax)
                 .ToList();
 
-            var date = new OperatesReponse { Total = total };
+            var date = new OperatesResponse { Total = total };
 
             ConvertToEntities(result).ForEach(item =>
             {
