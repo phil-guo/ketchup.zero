@@ -114,6 +114,7 @@ namespace Ketchup.Zero.Application.Services.Operate
             return base.GetMenuOfOperate(request, context);
         }
 
+        [KongRoute(Name = "operates.RemoveOperate", Tags = new[] { "operate" }, Paths = new[] { "/zero/operates/RemoveOperate" })]
         public override Task<RemoveResponse> RemoveOperate(RemoveRequest request, ServerCallContext context)
         {
             var response = new RemoveResponse();
