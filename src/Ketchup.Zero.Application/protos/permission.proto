@@ -114,6 +114,7 @@ service RpcSysUser{
 	//分页查询
 	rpc PageSerachSysUser(SearchSysUser)returns(SearchSysUserResponse);
 	rpc RemoveSysUser(RemoveRequest)returns(RemoveResponse);
+
 }
 message SysUserDto{
 	int32 Id=1;
