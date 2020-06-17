@@ -97,27 +97,7 @@ namespace Ketchup.Zero.Application.Services.SysUser
                 return Task.FromResult(response);
             }
         }
-        [KongRoute(Name = "sysUsers.SetRole", Tags = new[] { "sysUser" }, Paths = new[] { "/zero/sysUsers/SetRole" })]
-        public override Task<RemoveResponse> SetRole(SetRoleDto request, ServerCallContext context)
-        {
-            var response = new RemoveResponse();
-            try
-            {
-              var  data = _sysUser.SingleOrDefault(item => item.Id == request.Id);
-              if(data == null) {
-                  throw new RpcException(new Status(StatusCode.InvalidArgument, "系统用户不存在"));
-              }
-              data.RoleId = request.RoleId;
-                _sysUser.Update(data);
-                response.IsComplete = true;
-                return Task.FromResult(response);
-            }
-            catch
-            {
-                response.IsComplete = false;
-                return Task.FromResult(response);
-            }
-        }
+        
         protected Expression<Func<Domain.SysUser, bool>> SearchFilter(SearchSysUser search)
         {
             return null;

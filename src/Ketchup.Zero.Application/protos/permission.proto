@@ -113,9 +113,7 @@ service RpcSysUser{
 	rpc CreateOrEditSysUser(SysUserDto) returns(SysUserDto);
 	//分页查询
 	rpc PageSerachSysUser(SearchSysUser)returns(SearchSysUserResponse);
-	rpc RemoveSysUser(RemoveRequest)returns(RemoveResponse);
-	rpc SetRole(SetRoleDto)returns(RemoveResponse);
-
+	rpc RemoveSysUser(RemoveRequest)returns(RemoveResponse);	
 }
 message SysUserDto{
 	int32 Id=1;
