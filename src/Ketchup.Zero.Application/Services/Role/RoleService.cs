@@ -93,9 +93,9 @@ namespace Ketchup.Zero.Application.Services.Role
         }
 
         [KongRoute(Name = "sysRoles.RemoveRole", Tags = new[] {"role"}, Paths = new[] {"/zero/roles/RemoveRole"})]
-        public override Task<RemoveRoleResponse> RemoveRole(RemoveRoleRequest request, ServerCallContext context)
+        public override Task<RemoveResponse> RemoveRole(RemoveRequest request, ServerCallContext context)
         {
-            var response = new RemoveRoleResponse();
+            var response = new RemoveResponse();
             try
             {
                 if (request.Id == 1)
@@ -112,7 +112,8 @@ namespace Ketchup.Zero.Application.Services.Role
             }
         }
 
-        [KongRoute(Name = "sysRoles.SetRolePermission", Tags = new[] { "role" }, Paths = new[] { "/zero/roles/SetRolePermission" })]
+        [KongRoute(Name = "sysRoles.SetRolePermission", Tags = new[] {"role"},
+            Paths = new[] {"/zero/roles/SetRolePermission"})]
         public override Task<SetRolePermissionResponse> SetRolePermission(SetRolepermissionRequest request,
             ServerCallContext context)
         {
