@@ -112,6 +112,7 @@ namespace Ketchup.Zero.Application.Services.Role
             }
         }
 
+        [KongRoute(Name = "sysRoles.SetRolePermission", Tags = new[] { "role" }, Paths = new[] { "/zero/roles/SetRolePermission" })]
         public override Task<SetRolePermissionResponse> SetRolePermission(SetRolepermissionRequest request,
             ServerCallContext context)
         {

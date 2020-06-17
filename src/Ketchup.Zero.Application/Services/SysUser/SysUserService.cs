@@ -24,7 +24,7 @@ namespace Ketchup.Zero.Application.Services.SysUser
             _sysUser = sysUser;
         }
 
-        [KongRoute(Name = "sysUsers.PageSerachOperate", Tags = new[] {"sysUser"},
+        [KongRoute(Name = "sysUsers.PageSerachSysUser", Tags = new[] {"sysUser"},
             Paths = new[] {"/zero/sysUsers/PageSerachSysUser"})]
         public override Task<SearchSysUserResponse> PageSerachSysUser(SearchSysUser request, ServerCallContext context)
         {
