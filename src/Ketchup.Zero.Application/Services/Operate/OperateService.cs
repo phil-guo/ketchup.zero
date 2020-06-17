@@ -10,6 +10,7 @@ using Ketchup.Permission;
 using Ketchup.Profession.AutoMapper;
 using Ketchup.Profession.ORM.EntityFramworkCore.Repository;
 using Ketchup.Zero.Application.Domain;
+using Ketchup.Zero.Application.Domain.Repos;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -19,21 +20,22 @@ namespace Ketchup.Zero.Application.Services.Operate
     public class OperateService : RpcOperate.RpcOperateBase
     {
         private readonly IEfCoreRepository<SysOperate, int> _operate;
-        private readonly IEfCoreRepository<SysRoleMenu, int> _roleMenu;
+        private readonly IRoleMenuRepos _roleMenu;
 
-        public OperateService(IEfCoreRepository<SysOperate, int> operate, IEfCoreRepository<SysRoleMenu, int> roleMenu)
+        public OperateService(IEfCoreRepository<SysOperate, int> operate, IRoleMenuRepos roleMenu)
         {
             _operate = operate;
             _roleMenu = roleMenu;
         }
 
         /// <summary>
-        /// 分页查询
+        ///     分页查询
         /// </summary>
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "operates.PageSerachOperate", Tags = new[] { "operate" }, Paths = new[] { "/zero/operates/PageSerachOperate" })]
+        [KongRoute(Name = "operates.PageSerachOperate", Tags = new[] {"operate"},
+            Paths = new[] {"/zero/operates/PageSerachOperate"})]
         public override Task<OperatesResponse> PageSerachOperate(SearchOperate request, ServerCallContext context)
         {
             var query = _operate.GetAll().AsNoTracking();
@@ -51,23 +53,21 @@ namespace Ketchup.Zero.Application.Services.Operate
                 .Take(request.PageMax)
                 .ToList();
 
-            var date = new OperatesResponse { Total = total };
+            var date = new OperatesResponse {Total = total};
 
-            ConvertToEntities(result).ForEach(item =>
-            {
-                date.Datas.Add(item);
-            });
+            ConvertToEntities(result).ForEach(item => { date.Datas.Add(item); });
 
             return Task.FromResult(date);
         }
 
         /// <summary>
-        /// 创建或修改
+        ///     创建或修改
         /// </summary>
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "operates.CreateOrEditOperate", Tags = new[] { "operate" }, Paths = new[] { "/zero/operates/CreateOrEditOperate" })]
+        [KongRoute(Name = "operates.CreateOrEditOperate", Tags = new[] {"operate"},
+            Paths = new[] {"/zero/operates/CreateOrEditOperate"})]
         public override Task<OperateDto> CreateOrEditOperate(OperateDto request, ServerCallContext context)
         {
             SysOperate data = null;
@@ -75,13 +75,9 @@ namespace Ketchup.Zero.Application.Services.Operate
             {
                 var entity = _operate.GetAll().OrderBy(item => item.Id).LastOrDefault();
                 if (entity != null)
-                {
                     request.Unique += entity.Unique;
-                }
                 else
-                {
                     request.Unique = 10001;
-                }
 
                 data = _operate.Insert(request.MapTo<SysOperate>());
             }
@@ -96,15 +92,18 @@ namespace Ketchup.Zero.Application.Services.Operate
         }
 
         /// <summary>
-        /// 获取菜单的功能
+        ///     获取菜单的功能
         /// </summary>
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "operates.GetMenuOfOperate", Tags = new[] { "operate" }, Paths = new[] { "/zero/operates/GetMenuOfOperate" })]
-        public override Task<MenuOfOperateReponse> GetMenuOfOperate(MenuOfOperateRequest request, ServerCallContext context)
+        [KongRoute(Name = "operates.GetMenuOfOperate", Tags = new[] {"operate"},
+            Paths = new[] {"/zero/operates/GetMenuOfOperate"})]
+        public override Task<MenuOfOperateReponse> GetMenuOfOperate(MenuOfOperateRequest request,
+            ServerCallContext context)
         {
-            var roleMenu = _roleMenu.SingleOrDefault(item => item.RoleId == request.RoleId && item.MenuId == request.MenuId);
+            var roleMenu =
+                _roleMenu.SingleOrDefault(item => item.RoleId == request.RoleId && item.MenuId == request.MenuId);
             var idNos = new MenuOfOperateReponse();
             JsonConvert.DeserializeObject<List<int>>(roleMenu?.Operates).ForEach(id =>
             {
@@ -114,7 +113,8 @@ namespace Ketchup.Zero.Application.Services.Operate
             return base.GetMenuOfOperate(request, context);
         }
 
-        [KongRoute(Name = "operates.RemoveOperate", Tags = new[] { "operate" }, Paths = new[] { "/zero/operates/RemoveOperate" })]
+        [KongRoute(Name = "operates.RemoveOperate", Tags = new[] {"operate"},
+            Paths = new[] {"/zero/operates/RemoveOperate"})]
         public override Task<RemoveResponse> RemoveOperate(RemoveRequest request, ServerCallContext context)
         {
             var response = new RemoveResponse();

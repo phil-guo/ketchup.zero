@@ -148,8 +148,17 @@ service RpcRole{
 	//分页查询
 	rpc PageSerachRole(SearchRole) returns(RoleList);	
 	rpc RemoveRole(RemoveRoleRequest)returns(RemoveRoleResponse);
+	//设置角色权限
+	rpc SetRolePermission(SetRolepermissionRequest)returns (SetRolePermissionResponse);
 }
 
+message  SetRolepermissionRequest{
+	int32 RoleId=1;
+	repeated string MenuIds=2;
+}
+message SetRolePermissionResponse{
+	bool IsComplete=1;
+}
 message RoleDto{
 	///角色名称
 	string Name=1;

@@ -24,7 +24,8 @@ namespace Ketchup.Zero.Application.Services.SysUser
             _sysUser = sysUser;
         }
 
-        [KongRoute(Name = "sysUsers.PageSerachOperate", Tags = new[] { "sysUser" }, Paths = new[] { "/zero/sysUsers/PageSerachSysUser" })]
+        [KongRoute(Name = "sysUsers.PageSerachOperate", Tags = new[] {"sysUser"},
+            Paths = new[] {"/zero/sysUsers/PageSerachSysUser"})]
         public override Task<SearchSysUserResponse> PageSerachSysUser(SearchSysUser request, ServerCallContext context)
         {
             var query = _sysUser.GetAll().AsNoTracking();
@@ -42,17 +43,15 @@ namespace Ketchup.Zero.Application.Services.SysUser
                 .Take(request.PageMax)
                 .ToList();
 
-            var date = new SearchSysUserResponse { Total = total };
+            var date = new SearchSysUserResponse {Total = total};
 
-            ConvertToEntities(result).ForEach(item =>
-            {
-                date.Datas.Add(item);
-            });
+            ConvertToEntities(result).ForEach(item => { date.Datas.Add(item); });
 
             return Task.FromResult(date);
         }
 
-        [KongRoute(Name = "sysUsers.CreateOrEditSysUser", Tags = new[] { "sysUser" }, Paths = new[] { "/zero/sysUsers/CreateOrEditSysUser" })]
+        [KongRoute(Name = "sysUsers.CreateOrEditSysUser", Tags = new[] {"sysUser"},
+            Paths = new[] {"/zero/sysUsers/CreateOrEditSysUser"})]
         public override Task<SysUserDto> CreateOrEditSysUser(SysUserDto request, ServerCallContext context)
         {
             if (request.Id == 1)
@@ -78,7 +77,8 @@ namespace Ketchup.Zero.Application.Services.SysUser
             return Task.FromResult(data.MapTo<SysUserDto>());
         }
 
-        [KongRoute(Name = "sysUsers.RemoveSysUser", Tags = new[] { "sysUser" }, Paths = new[] { "/zero/sysUsers/RemoveSysUser" })]
+        [KongRoute(Name = "sysUsers.RemoveSysUser", Tags = new[] {"sysUser"},
+            Paths = new[] {"/zero/sysUsers/RemoveSysUser"})]
         public override Task<RemoveResponse> RemoveSysUser(RemoveRequest request, ServerCallContext context)
         {
             var response = new RemoveResponse();
@@ -97,7 +97,7 @@ namespace Ketchup.Zero.Application.Services.SysUser
                 return Task.FromResult(response);
             }
         }
-        
+
         protected Expression<Func<Domain.SysUser, bool>> SearchFilter(SearchSysUser search)
         {
             return null;

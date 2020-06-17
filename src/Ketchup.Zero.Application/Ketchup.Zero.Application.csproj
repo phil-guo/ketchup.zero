@@ -16,11 +16,7 @@
     <PackageReference Include="KetchupCore" Version="0.1.1-preview" />
     <PackageReference Include="KetchupCore.Consul" Version="0.1.0-preview" />
     <PackageReference Include="KetchupCore.Grpc" Version="0.1.0-preview" />
-    <PackageReference Include="KetchupCore.Profession" Version="0.1.0-preview" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\Role\" />
+    <PackageReference Include="KetchupCore.Profession" Version="0.1.1-preview" />
   </ItemGroup>
 
   <ItemGroup>
