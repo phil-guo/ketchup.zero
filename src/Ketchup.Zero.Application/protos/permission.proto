@@ -144,9 +144,9 @@ message RemoveResponse{
 //角色
 service RpcRole{
 	//创建或修改
-	rpc CreateOrEdit(RoleDto) returns (RoleDto);
+	rpc CreateOrEditRole(RoleDto) returns (RoleDto);
 	//分页查询
-	rpc PageSerach(SearchRole) returns(RoleList);	
+	rpc PageSerachRole(SearchRole) returns(RoleList);	
 	rpc RemoveRole(RemoveRoleRequest)returns(RemoveRoleResponse);
 }
 
