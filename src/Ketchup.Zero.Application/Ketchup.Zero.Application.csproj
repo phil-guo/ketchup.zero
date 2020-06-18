@@ -17,6 +17,7 @@
     <PackageReference Include="KetchupCore.Consul" Version="0.1.0-preview" />
     <PackageReference Include="KetchupCore.Grpc" Version="0.1.0-preview" />
     <PackageReference Include="KetchupCore.Profession" Version="0.1.1-preview" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.6.0" />
   </ItemGroup>
 
   <ItemGroup>

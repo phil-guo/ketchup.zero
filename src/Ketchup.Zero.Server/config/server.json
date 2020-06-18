@@ -12,7 +12,10 @@
     }
   },
   "Zero": {
-    "Connection": "Data Source=192.168.180.55;port=3306;userid=root;password=qwe123QWE;database=ketchup_zero;Charset=utf8;"
+    "Connection": "Data Source=192.168.180.55;port=3306;userid=root;password=qwe123QWE;database=ketchup_zero;Charset=utf8;",
+    "Key": "LSyir1XvVA7fJmNjI2Dzxj9sj4JDsakk",
+    "Secret": "ktbN7JdBBUIVm4GIy68EYnc6WQ7Zy2h8",
+    "AuthExpired": 7200
   },
   "Server": {
     "Name": "zero",
