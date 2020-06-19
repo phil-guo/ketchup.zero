@@ -19,3 +19,5 @@ const globalSetting = {
   //操作失败同意提示语
   operateErrorMsg: "操作失败"
 };
+
+export default globalSetting
