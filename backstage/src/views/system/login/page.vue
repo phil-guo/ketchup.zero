@@ -78,7 +78,7 @@ export default {
       // 表单
       formLogin: {
         username: "admin",
-        password: "admin"      
+        password: "123qwe"      
       },
       // 表单校验
       rules: {
@@ -132,7 +132,7 @@ export default {
           // 注意 这里的演示没有传验证码
           // 具体需要传递的数据请自行修改代码
           this.login({
-            username: this.formLogin.username,
+            name: this.formLogin.username,
             password: this.formLogin.password
           }).then(() => {
             // 重定向对象不存在则返回顶层路径

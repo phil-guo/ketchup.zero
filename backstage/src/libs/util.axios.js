@@ -4,7 +4,7 @@
 
 import cookies from './util.cookies'
 import globalSetting from './util.setting'
-import $axios from '@/plugin/axios'
+import $axios from '@/api/service'
 
 const http = {}
 
