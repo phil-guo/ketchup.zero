@@ -1,11 +1,17 @@
 import cookies from './util.cookies'
 import db from './util.db'
 import log from './util.log'
+import http from './util.axios'
+import requestUrl from './util.url'
+import globalSetting from './util.setting'
 
 const util = {
   cookies,
   db,
-  log
+  log,
+  http,
+  requestUrl,
+  globalSetting
 }
 
 /**
