@@ -38,7 +38,7 @@ namespace Ketchup.Zero.Application
         {
             builder.ContainerBuilder.RegisterType<ZeroDbContext>().As<IEfCoreContext>();
             builder.ContainerBuilder.RegisterType<ZeroUnitOfWork>().As<IEfUnitOfWork>();
-            builder.ContainerBuilder.RegisterType<RoleMenuRepos>().As<IRoleMenuRepos>();
+            builder.ContainerBuilder.RegisterType<RoleMenuRepos>().As<IRoleMenuRepos>().InstancePerLifetimeScope();
         }
     }
 }
