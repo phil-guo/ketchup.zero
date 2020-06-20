@@ -108,9 +108,9 @@ namespace Ketchup.Zero.Application.Services.Operate
             JsonConvert.DeserializeObject<List<int>>(roleMenu?.Operates).ForEach(id =>
             {
                 var operate = _operate.SingleOrDefault(item => item.Id == id);
-                idNos.Datas.Add(operate?.Remark);
+                idNos.Datas.Add(operate?.Unique.ToString());
             });
-            return base.GetMenuOfOperate(request, context);
+            return Task.FromResult(idNos);
         }
 
         [KongRoute(Name = "operates.RemoveOperate", Tags = new[] {"operate"},
