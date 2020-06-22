@@ -23,13 +23,13 @@ const frameIn = [
       },
       // 演示页面
       {
-        path: 'page1',
-        name: 'page1',
+        path: '/operate',
+        name: 'operate',
         meta: {
-          title: '页面 1',
+          title: '功能管理',
           auth: true
         },
-        component: _import('demo/page1')
+        component: _import('permissions/operate')
       },
       {
         path: 'page2',
