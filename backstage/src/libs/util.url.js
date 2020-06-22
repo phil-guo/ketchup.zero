@@ -5,7 +5,10 @@ const requestUrl = {
   auth: globalSetting.host + "/auth/token",
 
   //operates
-  getMenuOfOperate: globalSetting.host + "/zero/operates/GetMenuOfOperate"
-}
+  getMenuOfOperate: globalSetting.host + "/zero/operates/GetMenuOfOperate",
 
-export default requestUrl
+  //menu
+  roleMenus: globalSetting.host + "/zero/menus/GetMenusByRole"
+};
+
+export default requestUrl;

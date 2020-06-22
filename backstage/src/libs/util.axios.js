@@ -4,7 +4,7 @@
 
 import cookies from './util.cookies'
 import globalSetting from './util.setting'
-import $axios from '@/api/service'
+import axios from 'axios'
 
 const http = {}
 
@@ -16,19 +16,19 @@ const http = {}
  * @param {String} callback 回掉函数
  */
 http.post = function(url, data, vm, callback) {
-  $axios
+  axios
     .post(url, data, {
       headers: {
         Authorization: cookies.get(globalSetting.token)
       }
     })
     .then(response => {
-      if (response.status == 1) {        
-        callback(response.objects)
+      if (response.data.code == 0) {        
+        callback(response.data.result)
       } else {
         vm.$notify.error({
           title: globalSetting.operateErrorMsg,
-          message: response.msg
+          message: response.data.msg
         })
       }
     })
@@ -47,7 +47,7 @@ http.post = function(url, data, vm, callback) {
 }
 
 http.get = function(url, vm, callback) {
-  $axios
+  axios
     .get(
       url,
       {},

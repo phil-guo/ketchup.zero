@@ -1,42 +1,69 @@
-import { uniqueId } from 'lodash'
+import { uniqueId } from "lodash";
+import util from "@/libs/util.js";
+import { date } from "faker";
+import $ from "jquery";
+// import { reject, resolve } from "core-js/fn/promise";
 
 /**
  * @description 给菜单数据补充上 path 字段
  * @description https://github.com/d2-projects/d2-admin/issues/209
  * @param {Array} menu 原始的菜单数据
  */
-function supplementPath (menu) {
+function supplementPath(menu) {
   return menu.map(e => ({
     ...e,
-    path: e.path || uniqueId('d2-menu-empty-'),
-    ...e.children ? {
-      children: supplementPath(e.children)
-    } : {}
-  }))
+    path: e.path || uniqueId("d2-menu-empty-"),
+    ...(e.children
+      ? {
+          children: supplementPath(e.children)
+        }
+      : {})
+  }));
 }
 
-export const menuHeader = supplementPath([
-  { path: '/index', title: '首页', icon: 'home' },
-  {
-    title: '页面',
-    icon: 'folder-o',
-    children: [
-      { path: '/page1', title: '页面 1' },
-      { path: '/page2', title: '页面 2' },
-      { path: '/page3', title: '页面 3' }
-    ]
-  }
-])
+function supplementAsidePath() {
+  let menus = getRoleMenus(); 
+  return menus.map(e => ({
+    ...e,
+    path: e.path || uniqueId("d2-menu-empty-"),
+    ...(e.children
+      ? {
+          children: supplementPath(e.children)
+        }
+      : {})
+  }));
+}
+function supplementHeadPath(){
+  let menus = getRoleMenus(); 
+  return menus.map(e => ({
+    ...e,
+    path: e.path || uniqueId("d2-menu-empty-"),
+    ...(e.children
+      ? {
+          children: supplementPath(e.children)
+        }
+      : {})
+  }));
+}
 
-export const menuAside = supplementPath([
-  { path: '/index', title: '首页', icon: 'home' },
-  {
-    title: '页面',
-    icon: 'folder-o',
-    children: [
-      { path: '/page1', title: '页面 1' },
-      { path: '/page2', title: '页面 2' },
-      { path: '/page3', title: '页面 3' }
-    ]
-  }
-])
+function getRoleMenus() {
+  let menus = [];
+  $.ajax({
+    url: util.requestUrl.roleMenus,
+    type: "post",
+    contentType: "application/json",
+    async: false,
+    data: JSON.stringify({
+      roleId: util.cookies.get(util.globalSetting.roleId)
+    }),
+    success: function(response) {
+      menus = response.result.datas;
+    }
+  });
+
+  return menus;
+}
+
+export const menuHeader = supplementHeadPath();
+
+export const menuAside = supplementAsidePath();
