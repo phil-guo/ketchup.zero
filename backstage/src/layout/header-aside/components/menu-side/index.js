@@ -69,10 +69,10 @@ export default {
     this.scrollDestroy();
   },
   methods: {
-    setRouterParam(url, id) {
-      // debugger;
-      if (id != 1) this.$router.push({ path: url, query: { id: id } });
-    },
+    // setRouterParam(url,id) {
+    //   // debugger;
+    //   if (id != 1) this.$router.push({ path: url, query: { id: id } });
+    // },
     scrollInit() {
       this.BS = new BScroll(this.$el, {
         mouseWheel: true,

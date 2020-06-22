@@ -15,7 +15,7 @@ const http = {}
  * @param {object} vm 当前上下文
  * @param {String} callback 回掉函数
  */
-http.post = function(url, data, vm, callback) {
+http.post = function (url, data, vm, callback) {
   axios
     .post(url, data, {
       headers: {
@@ -23,7 +23,7 @@ http.post = function(url, data, vm, callback) {
       }
     })
     .then(response => {
-      if (response.data.code == 0) {        
+      if (response.data.code == 0) {
         callback(response.data.result)
       } else {
         vm.$notify.error({
@@ -33,11 +33,11 @@ http.post = function(url, data, vm, callback) {
       }
     })
     .catch(err => {
-      if (err.response.status == 401) {
+      if (err.response.code == 401) {
         vm.$router.push({
           name: 'login'
         })
-      } else if (err.response.status == 403) {
+      } else if (err.response.code == 403) {
         vm.$message({
           type: 'error',
           message: globalSetting.tokenMsg
@@ -46,12 +46,10 @@ http.post = function(url, data, vm, callback) {
     })
 }
 
-http.get = function(url, vm, callback) {
+http.get = function (url, vm, callback) {
   axios
     .get(
-      url,
-      {},
-      {
+      url, {}, {
         headers: {
           Authorization: cookies.get(globalSetting.token)
         }

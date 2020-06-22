@@ -26,16 +26,16 @@ export function elSubmenu(h, menu) {
   if (menu.icon) icon = <i slot="title" class={`fa fa-${menu.icon}`} />;
   else if (menu.iconSvg)
     icon = <d2-icon-svg slot="title" name={menu.iconSvg} />;
-  else icon = <i slot="title" class="fa fa-folder-o" />;
+  else icon = <i slot="title" class="fa fa-folder-o" />;  
   return (
-    <el-submenu key={menu.path} index={menu.path} on-click={setRouterParam(menu.path,menu.id).bind(this)}>
+    <el-submenu key={menu.path} index={menu.path}>  
       {icon}
       <span slot="title">{menu.title || "未命名菜单"}</span>
       {menu.children.map(child => createMenu.call(this, h, child))}
     </el-submenu>
   );
 }
-
+// click={this.setRouterParam(menu.path,menu.id)}
 /**
  * @description 在组件中调用此方法渲染菜单项目
  * @param {Function} h createElement

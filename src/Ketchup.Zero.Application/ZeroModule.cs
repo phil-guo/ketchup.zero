@@ -22,7 +22,7 @@ namespace Ketchup.Zero.Application
         public override void Initialize(KetchupPlatformContainer builder)
         {
             Mapper.Initialize(cfg => cfg.AddProfile<PermissionProfile>());
-            builder.GetInstances<IKongNetProvider>().AddKongSetting();
+            //builder.GetInstances<IKongNetProvider>().AddKongSetting();
         }
 
         public override void MapGrpcService(IEndpointRouteBuilder endpointRoute)
