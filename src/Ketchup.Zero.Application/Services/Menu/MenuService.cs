@@ -83,7 +83,7 @@ namespace Ketchup.Zero.Application.Services.Menu
         /// <returns></returns>
         [KongRoute(Name = "menus.CreateOrEditMenu", Paths = new[] { "/zero/menus/CreateOrEditMenu" },
             Tags = new[] { "menu" })]
-        public override Task<MenuDto> CreateOrEditMenu(MenuDto request, ServerCallContext context)
+        public override Task<MenuDto> CreateOrEditMenu(CreateOrEditMenuRequest request, ServerCallContext context)
         {
             var menu = request.MapTo<SysMenu>();
 
@@ -278,7 +278,7 @@ namespace Ketchup.Zero.Application.Services.Menu
                 });
             });
 
-            var tree = listMenus.Where(item => item.ParentId == 0).ToList();
+            var tree = listMenus.Where(item => item.ParentId == 99999).ToList();
 
             tree.ForEach(item => { BuildMeunsRecursiveTree(listMenus, item); });
 

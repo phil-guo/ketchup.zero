@@ -11,6 +11,10 @@ namespace Ketchup.Zero.Application
             CreateMap<SysMenu, MenuDto>()
                 .ForMember(destination => destination.Icon, opt => opt.NullSubstitute(""));
 
+            CreateMap<CreateOrEditMenuRequest, SysMenu>()
+                .ForMember(destination => destination.Icon, opt => opt.NullSubstitute(""))
+                .ForMember(destination => destination.Sort, opt => opt.Ignore());
+
             CreateMap<SysRole, RoleDto>()
                 .ForMember(destination => destination.Name, opt => opt.NullSubstitute(""))
                 .ForMember(destination => destination.Remark, opt => opt.NullSubstitute(""));

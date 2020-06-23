@@ -14,7 +14,9 @@ const requestUrl = {
 
   //menu
   roleMenus: globalSetting.host + "/api/zero/menus/GetMenusByRole",
-  pageSearchMenu: globalSetting.host + "/api/zero/menus/PageSerachMenu"
+  pageSearchMenu: globalSetting.host + "/api/zero/menus/PageSerachMenu",
+  menuAddOrEdit:globalSetting.host + "/api/zero/menus/CreateOrEditMenu",
+  removeMenu:globalSetting.host + "/api/zero/menus/RemoveMenu",
 };
 
 export default requestUrl;

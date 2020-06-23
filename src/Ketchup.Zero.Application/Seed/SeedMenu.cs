@@ -15,7 +15,7 @@ namespace Ketchup.Zero.Application.Seed
             builder.HasData(new SysMenu
             {
                 Id = 1,
-                ParentId = 0,
+                ParentId = 99999,
                 Level = 1,
                 Name = "基础数据管理",
                 Operates = JsonConvert.SerializeObject(new List<int>()),
