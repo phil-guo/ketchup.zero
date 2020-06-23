@@ -85,6 +85,7 @@ service RpcOperate{
 message SearchOperate{
 	int32 PageIndex=1;
 	int32 PageMax=2;
+	string Name=3;
 }
 message OperatesResponse{
 	repeated OperateDto Datas=1;

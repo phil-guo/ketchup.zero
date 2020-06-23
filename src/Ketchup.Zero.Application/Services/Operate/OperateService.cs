@@ -9,6 +9,7 @@ using Ketchup.Core.Kong.Attribute;
 using Ketchup.Permission;
 using Ketchup.Profession.AutoMapper;
 using Ketchup.Profession.ORM.EntityFramworkCore.Repository;
+using Ketchup.Profession.Specification;
 using Ketchup.Zero.Application.Domain;
 using Ketchup.Zero.Application.Domain.Repos;
 using Microsoft.EntityFrameworkCore;
@@ -133,7 +134,12 @@ namespace Ketchup.Zero.Application.Services.Operate
 
         protected Expression<Func<SysOperate, bool>> SearchFilter(SearchOperate search)
         {
-            return null;
+            Expression<Func<SysOperate, bool>> expression = item => true;
+
+            if (!string.IsNullOrEmpty(search.Name))
+                expression = expression.And(item => item.Name.Contains(search.Name));
+
+            return expression;
         }
 
         protected Expression<Func<SysOperate, int>> OrderFilter()
