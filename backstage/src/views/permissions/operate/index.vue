@@ -8,7 +8,7 @@
     </el-row>
     <d2-crud :columns="columns" :data="data" :loading="loading" selection-row @selection-change="handleSelectionChange" :pagination="pagination"
       @pagination-current-change="paginationCurrentChange">
-      <zero-permission slot="header" style="margin-bottom: 5px" @zero-addEdit="addOrEditRow" @zero-search="search">
+      <zero-permission slot="header" style="margin-bottom: 5px" @zero-addEdit="addOrEditRow" @zero-search="search" @zero-remove="remove">
       </zero-permission>
     </d2-crud>
     <!--添加编辑弹窗-->
@@ -98,6 +98,50 @@ export default {
     vm.pageSearch(vm.pagination.currentPage);
   },
   methods: {
+    remove() {
+      let vm = this;
+      if (vm.multipleSelection == null || vm.multipleSelection.length != 1) {
+        this.$notify.error({
+          title: util.globalSetting.operateErrorMsg,
+          message: "请选取一行数据操作"
+        });
+      } else {
+        this.$confirm("此操作将永久删除该记录, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+          center: true
+        })
+          .then(() => {
+            // this.$message({
+            //   type: "success",
+            //   message: "删除成功!"
+            // });
+            let row = vm.multipleSelection[0];
+            util.http.post(
+              util.requestUrl.removeOperate,
+              { id: row.id },
+              vm,
+              function(response) {
+                vm.$notify({
+                  title: "成功",
+                  duration: 3000,
+                  message: util.globalSetting.operateSuccessMsg,
+                  type: "success"
+                });
+                vm.dialogFormVisible = false;
+                vm.pageSearch(vm.pagination.currentPage);
+              }
+            );
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除"
+            });
+          });
+      }
+    },
     search() {
       let vm = this;
       vm.pagination.currentPage = 1;
@@ -113,7 +157,7 @@ export default {
       if (type === "add") {
         vm.title = "添加";
         vm.operateItem.id = 0;
-        vm.operateItem.name = "";        
+        vm.operateItem.name = "";
         vm.operateItem.remark = "";
         vm.dialogFormVisible = true;
       }
@@ -148,7 +192,7 @@ export default {
               message: util.globalSetting.operateSuccessMsg,
               type: "success"
             });
-            vm.dialogFormVisible = false;            
+            vm.dialogFormVisible = false;
             vm.pageSearch(vm.pagination.currentPage);
           }
         );
@@ -156,7 +200,6 @@ export default {
     },
 
     pageSearch(pageCurrent) {
-      
       let vm = this;
       vm.params.pageIndex = pageCurrent;
       vm.params.pageMax = vm.pagination.pageSize;

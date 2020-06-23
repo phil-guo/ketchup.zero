@@ -6,9 +6,12 @@ const requestUrl = {
 
   //operates
   getMenuOfOperate: globalSetting.host + "/api/zero/operates/GetMenuOfOperate",
-  pageSearchOperate: globalSetting.host + "/api/zero/operates/PageSerachOperate",
-  operateAddOrEdit:globalSetting.host + "/api/zero/operates/CreateOrEditOperate",
-
+  pageSearchOperate:
+    globalSetting.host + "/api/zero/operates/PageSerachOperate",
+  operateAddOrEdit:
+    globalSetting.host + "/api/zero/operates/CreateOrEditOperate",
+  removeOperate: globalSetting.host + "/api/zero/operates/RemoveOperate",
+  
   //menu
   roleMenus: globalSetting.host + "/api/zero/menus/GetMenusByRole"
 };
