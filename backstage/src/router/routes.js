@@ -32,13 +32,13 @@ const frameIn = [
         component: _import('permissions/operate')
       },
       {
-        path: 'page2',
-        name: 'page2',
+        path: '/menu',
+        name: 'menu',
         meta: {
-          title: '页面 2',
+          title: '菜单管理',
           auth: true
         },
-        component: _import('demo/page2')
+        component: _import('permissions/menu')
       },
       {
         path: 'page3',
