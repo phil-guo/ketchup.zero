@@ -11,7 +11,25 @@
       <zero-permission slot="header" style="margin-bottom: 5px" @zero-addEdit="addOrEditRow" @zero-search="search">
       </zero-permission>
     </d2-crud>
-
+    <!--添加编辑弹窗-->
+    <el-dialog :title="title" :visible.sync="dialogFormVisible" width="600px">
+      <el-row>
+        <el-col :span="20">
+          <el-form :model="operateItem" :rules="operateAddOrUpdateRules" ref="operateItem">
+            <el-form-item label="名称" label-width="120px" prop="name">
+              <el-input v-model="operateItem.name"></el-input>
+            </el-form-item>
+            <el-form-item label="备注" label-width="120px">
+              <el-input v-model="operateItem.remark"></el-input>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addOrEditSubmit('operateItem')">确 定</el-button>
+      </div>
+    </el-dialog>
   </d2-container>
 </template>
 
@@ -24,9 +42,11 @@ export default {
   },
   data() {
     return {
-      //查询框
+      //查询条件
       name: "",
       params: {},
+
+      //table
       data: [],
       columns: [
         {
@@ -51,7 +71,26 @@ export default {
         total: 0
       },
       // checkbox选择
-      multipleSelection: []
+      multipleSelection: [],
+
+      //表单
+      title: "",
+      operateItem: {
+        id: 0,
+        name: "",
+        remark: ""
+      },
+      dialogFormVisible: false,
+
+      operateAddOrUpdateRules: {
+        name: [
+          {
+            required: true,
+            message: "请输入名称",
+            trigger: "blur"
+          }
+        ]
+      }
     };
   },
   mounted() {
@@ -69,9 +108,56 @@ export default {
 
       vm.pageSearch(vm.pagination.currentPage);
     },
-    addOrEditRow(formName) {},
+    addOrEditRow(type) {
+      let vm = this;
+      if (type === "add") {
+        vm.title = "添加";
+        vm.operateItem.id = 0;
+        vm.operateItem.name = "";        
+        vm.operateItem.remark = "";
+        vm.dialogFormVisible = true;
+      }
+      if (type === "edit") {
+        if (vm.multipleSelection == null || vm.multipleSelection.length != 1) {
+          this.$notify.error({
+            title: util.globalSetting.operateErrorMsg,
+            message: "请选取一行数据操作"
+          });
+        } else {
+          let row = vm.multipleSelection[0];
+          vm.title = "编辑";
+          vm.operateItem.id = row.id;
+          vm.operateItem.name = row.name;
+          vm.operateItem.remark = row.remark;
+          vm.dialogFormVisible = true;
+        }
+      }
+    },
+
+    addOrEditSubmit(form) {
+      let vm = this;
+      vm.$refs[form].validate(valid => {
+        util.http.post(
+          util.requestUrl.operateAddOrEdit,
+          vm.operateItem,
+          vm,
+          function(response) {
+            vm.$notify({
+              title: "成功",
+              duration: 3000,
+              message: util.globalSetting.operateSuccessMsg,
+              type: "success"
+            });
+            vm.dialogFormVisible = false;            
+            vm.pageSearch(vm.pagination.currentPage);
+          }
+        );
+      });
+    },
+
     pageSearch(pageCurrent) {
-      let vm = this;      
+      
+      let vm = this;
       vm.params.pageIndex = pageCurrent;
       vm.params.pageMax = vm.pagination.pageSize;
 

@@ -35,8 +35,8 @@ namespace Ketchup.Zero.Application.Services.Operate
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "operates.PageSerachOperate", Tags = new[] {"operate"},
-            Paths = new[] {"/zero/operates/PageSerachOperate"})]
+        [KongRoute(Name = "operates.PageSerachOperate", Tags = new[] { "operate" },
+            Paths = new[] { "/zero/operates/PageSerachOperate" })]
         public override Task<OperatesResponse> PageSerachOperate(SearchOperate request, ServerCallContext context)
         {
             var query = _operate.GetAll().AsNoTracking();
@@ -54,7 +54,7 @@ namespace Ketchup.Zero.Application.Services.Operate
                 .Take(request.PageMax)
                 .ToList();
 
-            var date = new OperatesResponse {Total = total};
+            var date = new OperatesResponse { Total = total };
 
             ConvertToEntities(result).ForEach(item => { date.Datas.Add(item); });
 
@@ -67,8 +67,8 @@ namespace Ketchup.Zero.Application.Services.Operate
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "operates.CreateOrEditOperate", Tags = new[] {"operate"},
-            Paths = new[] {"/zero/operates/CreateOrEditOperate"})]
+        [KongRoute(Name = "operates.CreateOrEditOperate", Tags = new[] { "operate" },
+            Paths = new[] { "/zero/operates/CreateOrEditOperate" })]
         public override Task<OperateDto> CreateOrEditOperate(OperateDto request, ServerCallContext context)
         {
             SysOperate data = null;
@@ -76,7 +76,7 @@ namespace Ketchup.Zero.Application.Services.Operate
             {
                 var entity = _operate.GetAll().OrderBy(item => item.Id).LastOrDefault();
                 if (entity != null)
-                    request.Unique += entity.Unique;
+                    request.Unique = entity.Unique + 1;
                 else
                     request.Unique = 10001;
 
@@ -86,6 +86,7 @@ namespace Ketchup.Zero.Application.Services.Operate
             {
                 data = _operate.SingleOrDefault(item => item.Id == request.Id);
                 data.Name = request.Name;
+                data.Remark = request.Remark;
                 data = _operate.Update(data);
             }
 
@@ -98,8 +99,8 @@ namespace Ketchup.Zero.Application.Services.Operate
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "operates.GetMenuOfOperate", Tags = new[] {"operate"},
-            Paths = new[] {"/zero/operates/GetMenuOfOperate"})]
+        [KongRoute(Name = "operates.GetMenuOfOperate", Tags = new[] { "operate" },
+            Paths = new[] { "/zero/operates/GetMenuOfOperate" })]
         public override Task<MenuOfOperateReponse> GetMenuOfOperate(MenuOfOperateRequest request,
             ServerCallContext context)
         {
@@ -114,8 +115,8 @@ namespace Ketchup.Zero.Application.Services.Operate
             return Task.FromResult(idNos);
         }
 
-        [KongRoute(Name = "operates.RemoveOperate", Tags = new[] {"operate"},
-            Paths = new[] {"/zero/operates/RemoveOperate"})]
+        [KongRoute(Name = "operates.RemoveOperate", Tags = new[] { "operate" },
+            Paths = new[] { "/zero/operates/RemoveOperate" })]
         public override Task<RemoveResponse> RemoveOperate(RemoveRequest request, ServerCallContext context)
         {
             var response = new RemoveResponse();
