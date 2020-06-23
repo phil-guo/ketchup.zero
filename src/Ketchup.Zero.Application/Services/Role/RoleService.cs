@@ -70,7 +70,7 @@ namespace Ketchup.Zero.Application.Services.Role
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "role.CreateOrEditRole", Paths = new[] {"/zero/roles/CreateOrEditRole"},
+        [KongRoute(Name = "roles.CreateOrEditRole", Paths = new[] {"/zero/roles/CreateOrEditRole"},
             Tags = new[] {"role"})]
         public override Task<RoleDto> CreateOrEditRole(RoleDto request, ServerCallContext context)
         {
@@ -92,7 +92,7 @@ namespace Ketchup.Zero.Application.Services.Role
             return Task.FromResult(role.MapTo<RoleDto>());
         }
 
-        [KongRoute(Name = "sysRoles.RemoveRole", Tags = new[] {"role"}, Paths = new[] {"/zero/roles/RemoveRole"})]
+        [KongRoute(Name = "roles.RemoveRole", Tags = new[] {"role"}, Paths = new[] {"/zero/roles/RemoveRole"})]
         public override Task<RemoveResponse> RemoveRole(RemoveRequest request, ServerCallContext context)
         {
             var response = new RemoveResponse();
@@ -112,7 +112,7 @@ namespace Ketchup.Zero.Application.Services.Role
             }
         }
 
-        [KongRoute(Name = "sysRoles.SetRolePermission", Tags = new[] {"role"},
+        [KongRoute(Name = "roles.SetRolePermission", Tags = new[] {"role"},
             Paths = new[] {"/zero/roles/SetRolePermission"})]
         public override Task<SetRolePermissionResponse> SetRolePermission(SetRolepermissionRequest request,
             ServerCallContext context)

@@ -174,7 +174,7 @@ namespace Ketchup.Zero.Application.Services.Menu
                 });
             });
 
-            var tree = listMenus.Where(item => item.ParentId == 0).ToList();
+            var tree = listMenus.Where(item => item.ParentId == 99999).ToList();
 
             var operates = _operate
                 .GetAll()
@@ -198,7 +198,8 @@ namespace Ketchup.Zero.Application.Services.Menu
                         model.Children.Add(operateModel);
                         operates.ForEach(op =>
                         {
-                            operateModel.Children.Add(new MenuModel { Id = $"{child.Id}_{op.Id}", Lable = op.Name });
+                            if (JsonConvert.DeserializeObject<List<int>>(child.Operates).Contains(op.Id))
+                                operateModel.Children.Add(new MenuModel { Id = $"{child.Id}_{op.Id}", Lable = op.Name });
                         });
                     });
                 result.List.Add(model);
@@ -297,6 +298,7 @@ namespace Ketchup.Zero.Application.Services.Menu
             roleMenusByRole.ForEach(rm =>
             {
                 var menu = _menu.SingleOrDefault(item => item.Id == rm.MenuId);
+                menu.Operates = rm.Operates;
                 menus.Add(menu);
             });
             return menus;

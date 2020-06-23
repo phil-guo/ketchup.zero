@@ -1,6 +1,6 @@
 // 全局常量
 const globalSetting = {
-  host: "http://192.168.3.11:8090",
+  host: "http://192.168.31.107:8090",
 
   userStorage: "uuid",
 

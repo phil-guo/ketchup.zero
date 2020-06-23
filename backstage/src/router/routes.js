@@ -49,6 +49,15 @@ const frameIn = [
         },
         component: _import('permissions/sysuser')
       },
+      {
+        path: '/role',
+        name: 'role',
+        meta: {
+          title: '角色管理',
+          auth: true
+        },
+        component: _import('permissions/role')
+      },
       // 系统 前端日志
       {
         path: 'log',
