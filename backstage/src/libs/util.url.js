@@ -17,6 +17,9 @@ const requestUrl = {
   pageSearchMenu: globalSetting.host + "/api/zero/menus/PageSerachMenu",
   menuAddOrEdit:globalSetting.host + "/api/zero/menus/CreateOrEditMenu",
   removeMenu:globalSetting.host + "/api/zero/menus/RemoveMenu",
+
+  //sysuser
+  pageSerachSysUser: globalSetting.host + "/api/zero/sysUsers/PageSerachSysUser",
 };
 
 export default requestUrl;

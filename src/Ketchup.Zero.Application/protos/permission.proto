@@ -150,6 +150,7 @@ message SysUserDto{
 	int32 RoleId=2;
 	string UserName=3;
 	string Password=4;
+	string RoleName=5;
 }
 message SearchSysUser{
 	int32 PageIndex=1;

@@ -20,7 +20,8 @@ namespace Ketchup.Zero.Application.Seed
                 Name = "基础数据管理",
                 Operates = JsonConvert.SerializeObject(new List<int>()),
                 Sort = 0,
-                Url = "/"
+                Url = "/",
+                Icon = "folder-o"
             }, new SysMenu()
             {
                 Id = 2,
@@ -30,6 +31,7 @@ namespace Ketchup.Zero.Application.Seed
                 Url = "operate",
                 Operates = JsonConvert.SerializeObject(new List<int> { 1, 2, 3, 4 }),
                 Sort = 1,
+                Icon = "folder-o"
             }, new SysMenu()
             {
                 Id = 3,
@@ -39,6 +41,7 @@ namespace Ketchup.Zero.Application.Seed
                 Url = "role",
                 Operates = JsonConvert.SerializeObject(new List<int> { 1, 2, 3, 4 }),
                 Sort = 2,
+                Icon = "folder-o"
             }, new SysMenu()
             {
                 Id = 4,
@@ -48,6 +51,7 @@ namespace Ketchup.Zero.Application.Seed
                 Url = "menu",
                 Operates = JsonConvert.SerializeObject(new List<int> { 1, 2, 3, 4 }),
                 Sort = 3,
+                Icon = "folder-o"
             }, new SysMenu()
             {
                 Id = 5,
@@ -57,6 +61,7 @@ namespace Ketchup.Zero.Application.Seed
                 Url = "sysUser",
                 Operates = JsonConvert.SerializeObject(new List<int> { 1, 2, 3, 4 }),
                 Sort = 4,
+                Icon = "folder-o"
             });
         }
     }

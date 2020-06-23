@@ -41,13 +41,13 @@ const frameIn = [
         component: _import('permissions/menu')
       },
       {
-        path: 'page3',
-        name: 'page3',
+        path: '/sysUser',
+        name: 'sysuser',
         meta: {
-          title: '页面 3',
+          title: '系统用户',
           auth: true
         },
-        component: _import('demo/page3')
+        component: _import('permissions/sysuser')
       },
       // 系统 前端日志
       {

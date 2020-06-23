@@ -10,6 +10,7 @@ using Ketchup.Permission;
 using Ketchup.Profession.AutoMapper;
 using Ketchup.Profession.ORM.EntityFramworkCore.Repository;
 using Ketchup.Profession.Utilis;
+using Ketchup.Zero.Application.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ketchup.Zero.Application.Services.SysUser
@@ -18,14 +19,16 @@ namespace Ketchup.Zero.Application.Services.SysUser
     public class SysUserService : RpcSysUser.RpcSysUserBase
     {
         private readonly IEfCoreRepository<Domain.SysUser, int> _sysUser;
+        private readonly IEfCoreRepository<SysRole, int> _role;
 
-        public SysUserService(IEfCoreRepository<Domain.SysUser, int> sysUser)
+        public SysUserService(IEfCoreRepository<Domain.SysUser, int> sysUser, IEfCoreRepository<SysRole, int> role)
         {
             _sysUser = sysUser;
+            _role = role;
         }
 
-        [KongRoute(Name = "sysUsers.PageSerachSysUser", Tags = new[] {"sysUser"},
-            Paths = new[] {"/zero/sysUsers/PageSerachSysUser"})]
+        [KongRoute(Name = "sysUsers.PageSerachSysUser", Tags = new[] { "sysUser" },
+            Paths = new[] { "/zero/sysUsers/PageSerachSysUser" })]
         public override Task<SearchSysUserResponse> PageSerachSysUser(SearchSysUser request, ServerCallContext context)
         {
             var query = _sysUser.GetAll().AsNoTracking();
@@ -43,15 +46,20 @@ namespace Ketchup.Zero.Application.Services.SysUser
                 .Take(request.PageMax)
                 .ToList();
 
-            var date = new SearchSysUserResponse {Total = total};
+            var date = new SearchSysUserResponse { Total = total };
 
-            ConvertToEntities(result).ForEach(item => { date.Datas.Add(item); });
+            ConvertToEntities(result).ForEach(item =>
+            {
+                var role = _role.SingleOrDefault(ro => ro.Id == item.RoleId);
+                item.RoleName = role?.Name;
+                date.Datas.Add(item);
+            });
 
             return Task.FromResult(date);
         }
 
-        [KongRoute(Name = "sysUsers.CreateOrEditSysUser", Tags = new[] {"sysUser"},
-            Paths = new[] {"/zero/sysUsers/CreateOrEditSysUser"})]
+        [KongRoute(Name = "sysUsers.CreateOrEditSysUser", Tags = new[] { "sysUser" },
+            Paths = new[] { "/zero/sysUsers/CreateOrEditSysUser" })]
         public override Task<SysUserDto> CreateOrEditSysUser(SysUserDto request, ServerCallContext context)
         {
             if (request.Id == 1)
@@ -77,8 +85,8 @@ namespace Ketchup.Zero.Application.Services.SysUser
             return Task.FromResult(data.MapTo<SysUserDto>());
         }
 
-        [KongRoute(Name = "sysUsers.RemoveSysUser", Tags = new[] {"sysUser"},
-            Paths = new[] {"/zero/sysUsers/RemoveSysUser"})]
+        [KongRoute(Name = "sysUsers.RemoveSysUser", Tags = new[] { "sysUser" },
+            Paths = new[] { "/zero/sysUsers/RemoveSysUser" })]
         public override Task<RemoveResponse> RemoveSysUser(RemoveRequest request, ServerCallContext context)
         {
             var response = new RemoveResponse();

@@ -95,7 +95,6 @@ namespace Ketchup.Zero.Application.Services.Menu
                 oldMenu.Name = menu.Name;
                 oldMenu.Level = menu.Level;
                 oldMenu.Url = menu.Url;
-                oldMenu.Sort = menu.Sort;
                 oldMenu.Icon = menu.Icon;
                 menu = _menu.Update(oldMenu);
             }
