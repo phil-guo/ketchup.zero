@@ -20,6 +20,11 @@ const requestUrl = {
 
   //sysuser
   pageSerachSysUser: globalSetting.host + "/api/zero/sysUsers/PageSerachSysUser",
+  createOrEditSysUser:globalSetting.host + "/api/zero/sysUsers/CreateOrEditSysUser",
+  removeSysUser:globalSetting.host + "/api/zero/sysUsers/RemoveSysUser",
+
+  //role
+  pageSearchRole: globalSetting.host + "/api/zero/roles/PageSerachRole",
 };
 
 export default requestUrl;

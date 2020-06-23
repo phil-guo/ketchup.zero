@@ -191,6 +191,7 @@ message SetRolePermissionResponse{
 	bool IsComplete=1;
 }
 message RoleDto{
+	int32 Id=3;
 	///角色名称
 	string Name=1;
 	///角色备注
