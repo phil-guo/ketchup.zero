@@ -37,6 +37,12 @@ message MenuDto{
 
 	//主键
 	int32 Id=7;
+
+	repeated OperateModel OperateModels=8;
+}
+message OperateModel{
+	int32 Id=1;
+	string Name=2;
 }
 message MenutList {
 	repeated MenuDto Datas = 1;

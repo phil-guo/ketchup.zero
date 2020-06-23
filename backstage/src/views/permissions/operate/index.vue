@@ -2,7 +2,7 @@
   <d2-container>
 
     <el-row :gutter="5">
-      <el-col :span="4">
+      <el-col :span="3">
         <el-input v-model="name" clearable placeholder="请输入名称" style="margin-bottom: 5px"></el-input>
       </el-col>
     </el-row>
@@ -36,6 +36,7 @@
 <script>
 import zeroComponent from "@/views/permissions/zero.component/index.vue";
 import util from "@/libs/util.js";
+
 export default {
   components: {
     "zero-permission": zeroComponent

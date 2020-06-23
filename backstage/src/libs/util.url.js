@@ -11,9 +11,10 @@ const requestUrl = {
   operateAddOrEdit:
     globalSetting.host + "/api/zero/operates/CreateOrEditOperate",
   removeOperate: globalSetting.host + "/api/zero/operates/RemoveOperate",
-  
+
   //menu
-  roleMenus: globalSetting.host + "/api/zero/menus/GetMenusByRole"
+  roleMenus: globalSetting.host + "/api/zero/menus/GetMenusByRole",
+  pageSearchMenu: globalSetting.host + "/api/zero/menus/PageSerachMenu"
 };
 
 export default requestUrl;

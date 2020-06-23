@@ -60,7 +60,17 @@ namespace Ketchup.Zero.Application.Services.Menu
 
             var date = new MenutList { Total = total };
 
-            ConvertToEntities(result).ForEach(item => { date.Datas.Add(item); });
+            ConvertToEntities(result).ForEach(item =>
+            {
+                JsonConvert.DeserializeObject<List<int>>(item.Operates).ForEach(operateId =>
+                {
+                    var operate = _operate.SingleOrDefault(ope => ope.Id == operateId);
+                    if (operate == null) return;
+                    item.OperateModels.Add(new OperateModel() { Id = operateId, Name = operate.Name });
+                });
+
+                date.Datas.Add(item);
+            });
 
             return Task.FromResult(date);
         }
