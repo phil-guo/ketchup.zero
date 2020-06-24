@@ -90,11 +90,11 @@ namespace Ketchup.Zero.Application.Services.SysUser
         public override Task<RemoveResponse> RemoveSysUser(RemoveRequest request, ServerCallContext context)
         {
             var response = new RemoveResponse();
+
+            if (request.Id == 1)
+                throw new RpcException(new Status(StatusCode.InvalidArgument, "admin不能被删除"));
             try
             {
-                if (request.Id == 1)
-                    throw new RpcException(new Status(StatusCode.InvalidArgument, "admin不能被删除"));
-
                 _sysUser.Delete(request.Id);
                 response.IsComplete = true;
                 return Task.FromResult(response);

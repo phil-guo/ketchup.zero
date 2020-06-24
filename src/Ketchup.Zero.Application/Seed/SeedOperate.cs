@@ -28,6 +28,11 @@ namespace Ketchup.Zero.Application.Seed
                 Id = 4,
                 Name = "删除",
                 Unique = 1004,
+            }, new SysOperate()
+            {
+                Id = 5,
+                Name = "权限",
+                Unique = 1005,
             });
         }
     }

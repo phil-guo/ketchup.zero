@@ -29,7 +29,7 @@ namespace Ketchup.Zero.Application.Seed
                 Id = 3,
                 MenuId = 3,
                 RoleId = 1,
-                Operates = JsonConvert.SerializeObject(new List<int>() { 1, 2, 3 })
+                Operates = JsonConvert.SerializeObject(new List<int>() { 1, 2, 3, 4, 5 })
             }, new SysRoleMenu
             {
                 Id = 4,

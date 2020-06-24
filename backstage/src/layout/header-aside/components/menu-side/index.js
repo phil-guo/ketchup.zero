@@ -17,19 +17,6 @@ export default {
           ref="menu"
           onSelect={this.handleMenuSelect}
         >
-          {/* <template v-for={(this.menu, this.menuIndex) in this.aside}>
-            <d2-layout-header-aside-menu-item
-              v-if={this.menu.children === undefined}
-              menu={this.menu}
-              key={this.menuIndex}
-            />
-            <d2-layout-header-aside-menu-sub
-              v-else
-              menu={this.menu}
-              key={this.menuIndex}
-              onClick={this.setRouterParam(this.menu.children.path,this.menu.children.id)}
-            />
-          </template> */}
           {this.aside.map(menu => createMenu.call(this, h, menu))}
         </el-menu>
         {this.aside.length === 0 && !this.asideCollapse ? (
@@ -69,10 +56,7 @@ export default {
     this.scrollDestroy();
   },
   methods: {
-    // setRouterParam(url,id) {
-    //   // debugger;
-    //   if (id != 1) this.$router.push({ path: url, query: { id: id } });
-    // },
+    
     scrollInit() {
       this.BS = new BScroll(this.$el, {
         mouseWheel: true,

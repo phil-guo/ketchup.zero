@@ -39,7 +39,7 @@ namespace Ketchup.Zero.Application.Seed
                 Level = 2,
                 Name = "角色管理",
                 Url = "role",
-                Operates = JsonConvert.SerializeObject(new List<int> { 1, 2, 3, 4 }),
+                Operates = JsonConvert.SerializeObject(new List<int> { 1, 2, 3, 4, 5 }),
                 Sort = 2,
                 Icon = "folder-o"
             }, new SysMenu()

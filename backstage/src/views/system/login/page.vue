@@ -68,6 +68,12 @@
 import dayjs from "dayjs";
 import { mapActions } from "vuex";
 import localeMixin from "@/locales/mixin.js";
+import { menuHeader, menuAside } from "@/menu";
+import { uniqueId } from "lodash";
+import util from "@/libs/util.js";
+import { date } from "faker";
+import $ from "jquery";
+
 export default {
   mixins: [localeMixin],
   data() {
@@ -78,7 +84,7 @@ export default {
       // 表单
       formLogin: {
         username: "admin",
-        password: "123qwe"      
+        password: "123qwe"
       },
       // 表单校验
       rules: {
@@ -126,6 +132,7 @@ export default {
      */
     // 提交登录信息
     submit() {
+      let vm = this;
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           // 登录
@@ -136,6 +143,15 @@ export default {
             password: this.formLogin.password
           }).then(() => {
             // 重定向对象不存在则返回顶层路径
+            util.http.post(
+              util.requestUrl.roleMenus,
+              { roleId: util.cookies.get(util.globalSetting.roleId) },
+              vm,
+              function(response) {
+                var arry = supplementPath(response.datas);
+                vm.$store.commit("d2admin/menu/asideSet", arry);
+              }
+            );
             this.$router.replace(this.$route.query.redirect || "/");
           });
         } else {
@@ -146,6 +162,17 @@ export default {
     }
   }
 };
+function supplementPath(menu) {
+  return menu.map(e => ({
+    ...e,
+    path: e.path || uniqueId("d2-menu-empty-"),
+    ...(e.children
+      ? {
+          children: supplementPath(e.children)
+        }
+      : {})
+  }));
+}
 </script>
 
 <style lang="scss">

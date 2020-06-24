@@ -126,7 +126,6 @@
           let row = vm.multipleSelection[0];
           vm.title = "设置权限";
           vm.roleId = row.id;
-        //   vm.dialogTreeVisible = true;
           vm.getMenusSetRole(row.id);
         }
       },
