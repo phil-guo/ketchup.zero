@@ -2,6 +2,8 @@ import { mapState } from "vuex";
 import menuMixin from "../mixin/menu";
 import { createMenu } from "../libs/util.menu";
 import BScroll from "better-scroll";
+import util from "@/libs/util.js";
+import { uniqueId } from "lodash";
 
 export default {
   name: "d2-layout-header-aside-menu-side",
@@ -34,7 +36,8 @@ export default {
   data() {
     return {
       asideHeight: 300,
-      BS: null
+      BS: null,
+      menus: []
     };
   },
   computed: {
@@ -51,12 +54,12 @@ export default {
   },
   mounted() {
     this.scrollInit();
+    this.getRoleMenus();
   },
   beforeDestroy() {
     this.scrollDestroy();
   },
   methods: {
-    
     scrollInit() {
       this.BS = new BScroll(this.$el, {
         mouseWheel: true,
@@ -76,6 +79,30 @@ export default {
         delete this.BS;
         this.BS = null;
       }
+    },
+    getRoleMenus() {
+      let vm = this;
+      util.http.post(
+        util.requestUrl.roleMenus,
+        { roleId: util.cookies.get(util.globalSetting.roleId) },
+        vm,
+        function(response) {
+          vm.menus = supplementPath(response.datas);
+          vm.$store.commit("d2admin/menu/asideSet", vm.menus);
+        }
+      );
     }
   }
 };
+
+function supplementPath(menu) {
+  return menu.map(e => ({
+    ...e,
+    path: e.path || uniqueId("d2-menu-empty-"),
+    ...(e.children
+      ? {
+          children: supplementPath(e.children)
+        }
+      : {})
+  }));
+}

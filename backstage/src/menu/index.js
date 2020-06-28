@@ -48,18 +48,18 @@ function supplementHeadPath(){
 
 function getRoleMenus() {
   let menus = [];
-  $.ajax({
-    url: util.requestUrl.roleMenus,
-    type: "post",
-    contentType: "application/json",
-    async: false,
-    data: JSON.stringify({
-      roleId: util.cookies.get(util.globalSetting.roleId)
-    }),
-    success: function(response) {
-      menus = response.result.datas;
-    }
-  });
+  // $.ajax({
+  //   url: util.requestUrl.roleMenus,
+  //   type: "post",
+  //   contentType: "application/json",
+  //   async: false,
+  //   data: JSON.stringify({
+  //     roleId: util.cookies.get(util.globalSetting.roleId)
+  //   }),
+  //   success: function(response) {
+  //     menus = response.result.datas;
+  //   }
+  // });
 
   return menus;
 }
