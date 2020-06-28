@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Grpc.Core;
-using Ketchup.Consul.Configurations;
 using Ketchup.Permission;
 using Ketchup.Profession.ORM.EntityFramworkCore.Repository;
 using Ketchup.Profession.Utilis;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Ketchup.Zero.Application.Services.Auth
 {
@@ -22,7 +15,7 @@ namespace Ketchup.Zero.Application.Services.Auth
             _sysUser = sysUser;
         }
 
-        public override Task<TokenResponse> Token(TokenRequst request, ServerCallContext context)
+        public override Task<TokenResponse> Login(TokenRequst request, ServerCallContext context)
         {
             if (string.IsNullOrEmpty(request.Name))
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "用户名不能为空"));
@@ -38,34 +31,41 @@ namespace Ketchup.Zero.Application.Services.Auth
             if (sysUser == null)
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "用户名密码错误"));
 
-            var appConfig = new Ketchup.Zero.Application.Config.AppConfig();
-
             return Task.FromResult(new TokenResponse()
             {
-                AccessToken = GenerateToken(appConfig),
-                Expired = appConfig.Zero.AuthExpired,
                 UserName = sysUser.UserName,
                 RoleId = sysUser.RoleId,
                 UserId = sysUser.Id
             });
+
         }
 
-        private string GenerateToken(Config.AppConfig appConfig)
-        {
+        //private string GenerateToken(Config.AppConfig appConfig, HttpContext context)
+        //{
 
+        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appConfig.Zero.Secret));
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appConfig.Zero.Secret));
+        //    var identity = new ClaimsIdentity(JwtBearerDefaults.AuthenticationScheme);
+        //    var claims = new[]
+        //    {
+        //        new Claim(ClaimTypes.NameIdentifier, "simple"),
+        //        new Claim("Role", "1")
+        //    };
 
-            var token = new JwtSecurityToken(
-                issuer: appConfig.Zero.Key,
-                notBefore: DateTime.Now,
-                expires: DateTime.Now.AddSeconds(appConfig.Zero.AuthExpired),
-                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
-            );
+        //    identity.AddClaims(claims);
+        //    context.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(identity)).Wait();
 
-            var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
+        //    var token = new JwtSecurityToken(
+        //        claims: claims,
+        //        issuer: appConfig.Zero.Key,
+        //        notBefore: DateTime.Now,
+        //        expires: DateTime.Now.AddSeconds(appConfig.Zero.AuthExpired),
+        //        signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+        //    );
 
-            return jwtToken;
-        }
+        //    var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
+
+        //    return jwtToken;
+        //}
     }
 }
