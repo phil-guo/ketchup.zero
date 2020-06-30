@@ -2,14 +2,16 @@
 using Ketchup.Zero.Application;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ketchup.Zero.Application.Migrations
 {
     [DbContext(typeof(ZeroDbContext))]
-    partial class ZeroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200630075457_UpdataSeedData")]
+    partial class UpdataSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
