@@ -1,4 +1,6 @@
 # ketchup.zero
+[![](https://img.shields.io/badge/.NET%20Core-3.1-brightgreen.svg?style=flat-square)](https://www.microsoft.com/net/download/core) 
+[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/simple-gr/ketchup/blob/master/LICENSE) 
 ### 一个基于RBAC的权限服务设计的服务
 登陆
 ![image](https://github.com/simple-gr/ketchup.zero/blob/master/images/login.png)
