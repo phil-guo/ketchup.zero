@@ -39,33 +39,5 @@ namespace Ketchup.Zero.Application.Services.Auth
             });
 
         }
-
-        //private string GenerateToken(Config.AppConfig appConfig, HttpContext context)
-        //{
-
-        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appConfig.Zero.Secret));
-
-        //    var identity = new ClaimsIdentity(JwtBearerDefaults.AuthenticationScheme);
-        //    var claims = new[]
-        //    {
-        //        new Claim(ClaimTypes.NameIdentifier, "simple"),
-        //        new Claim("Role", "1")
-        //    };
-
-        //    identity.AddClaims(claims);
-        //    context.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(identity)).Wait();
-
-        //    var token = new JwtSecurityToken(
-        //        claims: claims,
-        //        issuer: appConfig.Zero.Key,
-        //        notBefore: DateTime.Now,
-        //        expires: DateTime.Now.AddSeconds(appConfig.Zero.AuthExpired),
-        //        signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
-        //    );
-
-        //    var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
-
-        //    return jwtToken;
-        //}
     }
 }

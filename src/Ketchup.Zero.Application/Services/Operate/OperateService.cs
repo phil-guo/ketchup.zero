@@ -9,7 +9,6 @@ using Ketchup.Core.Kong.Attribute;
 using Ketchup.Permission;
 using Ketchup.Profession.AutoMapper;
 using Ketchup.Profession.ORM.EntityFramworkCore.Repository;
-using Ketchup.Profession.Specification;
 using Ketchup.Zero.Application.Domain;
 using Ketchup.Zero.Application.Domain.Repos;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace Ketchup.Zero.Application.Services.Operate
 {
-    [Service(Name = "Ketchup.Permission.RpcOperate")]
+    [Service(Name = nameof(RpcOperate), Package = "Ketchup.Permission", TypeClientName = nameof(RpcOperate.RpcOperateClient))]
     public class OperateService : RpcOperate.RpcOperateBase
     {
         private readonly IEfCoreRepository<SysOperate, int> _operate;
@@ -37,6 +36,7 @@ namespace Ketchup.Zero.Application.Services.Operate
         /// <returns></returns>
         [KongRoute(Name = "operates.PageSerachOperate", Tags = new[] { "operate" },
             Paths = new[] { "/zero/operates/PageSerachOperate" })]
+        [ServiceRoute(Name = "operates", MethodName = nameof(PageSerachOperate))]
         public override Task<OperatesResponse> PageSerachOperate(SearchOperate request, ServerCallContext context)
         {
             var query = _operate.GetAll().AsNoTracking();
@@ -69,6 +69,7 @@ namespace Ketchup.Zero.Application.Services.Operate
         /// <returns></returns>
         [KongRoute(Name = "operates.CreateOrEditOperate", Tags = new[] { "operate" },
             Paths = new[] { "/zero/operates/CreateOrEditOperate" })]
+        [ServiceRoute(Name = "operates", MethodName = nameof(CreateOrEditOperate))]
         public override Task<OperateDto> CreateOrEditOperate(OperateDto request, ServerCallContext context)
         {
             SysOperate data = null;
@@ -101,6 +102,7 @@ namespace Ketchup.Zero.Application.Services.Operate
         /// <returns></returns>
         [KongRoute(Name = "operates.GetMenuOfOperate", Tags = new[] { "operate" },
             Paths = new[] { "/zero/operates/GetMenuOfOperate" })]
+        [ServiceRoute(Name = "operates", MethodName = nameof(GetMenuOfOperate))]
         public override Task<MenuOfOperateReponse> GetMenuOfOperate(MenuOfOperateRequest request,
             ServerCallContext context)
         {
@@ -117,6 +119,7 @@ namespace Ketchup.Zero.Application.Services.Operate
 
         [KongRoute(Name = "operates.RemoveOperate", Tags = new[] { "operate" },
             Paths = new[] { "/zero/operates/RemoveOperate" })]
+        [ServiceRoute(Name = "operates", MethodName = nameof(RemoveOperate))]
         public override Task<RemoveResponse> RemoveOperate(RemoveRequest request, ServerCallContext context)
         {
             var response = new RemoveResponse();

@@ -13,16 +13,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="KetchupCore" Version="0.1.1-preview" />
-    <PackageReference Include="KetchupCore.Consul" Version="0.1.0-preview" />
-    <PackageReference Include="KetchupCore.Grpc" Version="0.1.0-preview" />
-    <PackageReference Include="KetchupCore.Profession" Version="0.1.1-preview" />
+    <PackageReference Include="KetchupCore" Version="0.1.1-preview1" />
+    <PackageReference Include="KetchupCore.Consul" Version="0.1.1-preview1" />
+    <PackageReference Include="KetchupCore.Grpc" Version="0.1.1-preview1" />
+    <PackageReference Include="KetchupCore.Profession" Version="0.1.1-preview1" />
     <!--<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.6.0" />-->
     <!--<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />-->
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Update="protos\permission.proto" GrpcServices="Server" />
+    <Protobuf Update="protos\permission.proto" GrpcServices="Both" />
   </ItemGroup>
 
 </Project>

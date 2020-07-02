@@ -9,7 +9,6 @@ using Ketchup.Core.Kong.Attribute;
 using Ketchup.Permission;
 using Ketchup.Profession.AutoMapper;
 using Ketchup.Profession.ORM.EntityFramworkCore.Repository;
-using Ketchup.Profession.Specification;
 using Ketchup.Zero.Application.Domain;
 using Ketchup.Zero.Application.Domain.Repos;
 using Ketchup.Zero.Application.Services.Role.DTO;
@@ -18,7 +17,7 @@ using Newtonsoft.Json;
 
 namespace Ketchup.Zero.Application.Services.Role
 {
-    [Service(Name = "Ketchup.Permission.RpcRole")]
+    [Service(Name = nameof(RpcRole), Package = "Ketchup.Permission", TypeClientName = nameof(RpcRole.RpcRoleClient))]
     public class RoleService : RpcRole.RpcRoleBase
     {
         private readonly IEfCoreRepository<SysMenu, int> _menu;
@@ -40,6 +39,7 @@ namespace Ketchup.Zero.Application.Services.Role
         /// <param name="context"></param>
         /// <returns></returns>
         [KongRoute(Name = "roles.PageSerachRole", Paths = new[] { "/zero/roles/PageSerachRole" }, Tags = new[] { "role" })]
+        [ServiceRoute(Name = "roles", MethodName = nameof(PageSerachRole))]
         public override Task<RoleList> PageSerachRole(SearchRole request, ServerCallContext context)
         {
             var query = _role.GetAll().AsNoTracking();
@@ -72,6 +72,7 @@ namespace Ketchup.Zero.Application.Services.Role
         /// <returns></returns>
         [KongRoute(Name = "roles.CreateOrEditRole", Paths = new[] { "/zero/roles/CreateOrEditRole" },
             Tags = new[] { "role" })]
+        [ServiceRoute(Name = "roles", MethodName = nameof(CreateOrEditRole))]
         public override Task<RoleDto> CreateOrEditRole(RoleDto request, ServerCallContext context)
         {
             var role = request.MapTo<SysRole>();
@@ -93,6 +94,7 @@ namespace Ketchup.Zero.Application.Services.Role
         }
 
         [KongRoute(Name = "roles.RemoveRole", Tags = new[] { "role" }, Paths = new[] { "/zero/roles/RemoveRole" })]
+        [ServiceRoute(Name = "roles", MethodName = nameof(RemoveRole))]
         public override Task<RemoveResponse> RemoveRole(RemoveRequest request, ServerCallContext context)
         {
             var response = new RemoveResponse();
@@ -114,6 +116,7 @@ namespace Ketchup.Zero.Application.Services.Role
 
         [KongRoute(Name = "roles.SetRolePermission", Tags = new[] { "role" },
             Paths = new[] { "/zero/roles/SetRolePermission" })]
+        [ServiceRoute(Name = "roles", MethodName = nameof(SetRolePermission))]
         public override Task<SetRolePermissionResponse> SetRolePermission(SetRolepermissionRequest request,
             ServerCallContext context)
         {
