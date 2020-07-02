@@ -15,11 +15,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ketchup.Zero.Application.Services.SysUser
 {
-    [Service(Name = nameof(RpcSysUser), Package = "Ketchup.Permission", TypeClientName = nameof(RpcSysUser.RpcSysUserClient))]
+    [Service(Name = nameof(RpcSysUser), Package = "Ketchup.Permission",
+        TypeClientName = nameof(RpcSysUser.RpcSysUserClient))]
     public class SysUserService : RpcSysUser.RpcSysUserBase
     {
-        private readonly IEfCoreRepository<Domain.SysUser, int> _sysUser;
         private readonly IEfCoreRepository<SysRole, int> _role;
+        private readonly IEfCoreRepository<Domain.SysUser, int> _sysUser;
 
         public SysUserService(IEfCoreRepository<Domain.SysUser, int> sysUser, IEfCoreRepository<SysRole, int> role)
         {
@@ -28,7 +29,7 @@ namespace Ketchup.Zero.Application.Services.SysUser
         }
 
         [KongRoute(Name = "sysUsers.PageSerachSysUser", Tags = new[] { "sysUser" },
-            Paths = new[] { "/zero/sysUsers/PageSerachSysUser" })]
+            Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/sysUsers/PageSerachSysUser" })]
         [ServiceRoute(Name = "sysUsers", MethodName = nameof(PageSerachSysUser))]
         public override Task<SearchSysUserResponse> PageSerachSysUser(SearchSysUser request, ServerCallContext context)
         {
@@ -60,7 +61,7 @@ namespace Ketchup.Zero.Application.Services.SysUser
         }
 
         [KongRoute(Name = "sysUsers.CreateOrEditSysUser", Tags = new[] { "sysUser" },
-            Paths = new[] { "/zero/sysUsers/CreateOrEditSysUser" })]
+            Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/sysUsers/CreateOrEditSysUser" })]
         [ServiceRoute(Name = "sysUsers", MethodName = nameof(CreateOrEditSysUser))]
         public override Task<SysUserDto> CreateOrEditSysUser(SysUserDto request, ServerCallContext context)
         {
@@ -88,7 +89,7 @@ namespace Ketchup.Zero.Application.Services.SysUser
         }
 
         [KongRoute(Name = "sysUsers.RemoveSysUser", Tags = new[] { "sysUser" },
-            Paths = new[] { "/zero/sysUsers/RemoveSysUser" })]
+            Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/sysUsers/RemoveSysUser" })]
         [ServiceRoute(Name = "sysUsers", MethodName = nameof(RemoveSysUser))]
         public override Task<RemoveResponse> RemoveSysUser(RemoveRequest request, ServerCallContext context)
         {

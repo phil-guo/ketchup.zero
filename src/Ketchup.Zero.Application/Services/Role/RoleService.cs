@@ -38,7 +38,8 @@ namespace Ketchup.Zero.Application.Services.Role
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "roles.PageSerachRole", Paths = new[] { "/zero/roles/PageSerachRole" }, Tags = new[] { "role" })]
+        [KongRoute(Name = "roles.PageSerachRole", Paths = new[] {"/zero/roles/PageSerachRole"},
+            Methods = new[] {"POST", "OPTIONS"}, Tags = new[] {"role"})]
         [ServiceRoute(Name = "roles", MethodName = nameof(PageSerachRole))]
         public override Task<RoleList> PageSerachRole(SearchRole request, ServerCallContext context)
         {
@@ -57,7 +58,7 @@ namespace Ketchup.Zero.Application.Services.Role
                 .Take(request.PageMax)
                 .ToList();
 
-            var date = new RoleList { Total = total };
+            var date = new RoleList {Total = total};
 
             ConvertToEntities(result).ForEach(item => { date.Datas.Add(item); });
 
@@ -70,8 +71,8 @@ namespace Ketchup.Zero.Application.Services.Role
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "roles.CreateOrEditRole", Paths = new[] { "/zero/roles/CreateOrEditRole" },
-            Tags = new[] { "role" })]
+        [KongRoute(Name = "roles.CreateOrEditRole", Paths = new[] {"/zero/roles/CreateOrEditRole"},
+            Methods = new[] {"POST", "OPTIONS"}, Tags = new[] {"role"})]
         [ServiceRoute(Name = "roles", MethodName = nameof(CreateOrEditRole))]
         public override Task<RoleDto> CreateOrEditRole(RoleDto request, ServerCallContext context)
         {
@@ -93,7 +94,8 @@ namespace Ketchup.Zero.Application.Services.Role
             return Task.FromResult(role.MapTo<RoleDto>());
         }
 
-        [KongRoute(Name = "roles.RemoveRole", Tags = new[] { "role" }, Paths = new[] { "/zero/roles/RemoveRole" })]
+        [KongRoute(Name = "roles.RemoveRole", Tags = new[] {"role"}, Methods = new[] {"POST", "OPTIONS"},
+            Paths = new[] {"/zero/roles/RemoveRole"})]
         [ServiceRoute(Name = "roles", MethodName = nameof(RemoveRole))]
         public override Task<RemoveResponse> RemoveRole(RemoveRequest request, ServerCallContext context)
         {
@@ -114,13 +116,13 @@ namespace Ketchup.Zero.Application.Services.Role
             }
         }
 
-        [KongRoute(Name = "roles.SetRolePermission", Tags = new[] { "role" },
-            Paths = new[] { "/zero/roles/SetRolePermission" })]
+        [KongRoute(Name = "roles.SetRolePermission", Tags = new[] {"role"},
+            Methods = new[] {"POST", "OPTIONS"}, Paths = new[] {"/zero/roles/SetRolePermission"})]
         [ServiceRoute(Name = "roles", MethodName = nameof(SetRolePermission))]
         public override Task<SetRolePermissionResponse> SetRolePermission(SetRolepermissionRequest request,
             ServerCallContext context)
         {
-            var result = new SetRolePermissionResponse { IsComplete = true };
+            var result = new SetRolePermissionResponse {IsComplete = true};
             var datas = _roleMenu.GetAllList(item => item.RoleId == request.RoleId);
             if (datas.Count > 0)
                 _roleMenu.Delete(item => item.RoleId == request.RoleId);
