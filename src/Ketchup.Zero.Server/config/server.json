@@ -12,10 +12,7 @@
     }
   },
   "Zero": {
-    "Connection": "Data Source=192.168.180.55;port=3306;userid=root;password=qwe123QWE;database=ketchup_zero;Charset=utf8;",
-    "Key": "LSyir1XvVA7fJmNjI2Dzxj9sj4JDsakk",
-    "Secret": "ktbN7JdBBUIVm4GIy68EYnc6WQ7Zy2h8",
-    "AuthExpired": 7200
+    "Connection": "Data Source=192.168.180.55;port=3306;userid=root;password=qwe123QWE;database=ketchup_zero;Charset=utf8;"
   },
   "Server": {
     "Name": "zero",
@@ -25,8 +22,8 @@
     "Security": {
       "Whitelist": "*", //白名单
       "BlackList": "" //黑名单
-    },
-    "KongAddress": "192.168.190.114:8001" //网关kong 地址
+    }
+    //"KongAddress": "192.168.190.114:8001" //网关kong 地址
   },
   "Consul": {
     "ConnectionString": "192.168.180.55:8500",

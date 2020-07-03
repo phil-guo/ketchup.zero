@@ -28,25 +28,9 @@ namespace Ketchup.Zero.Server
             services.AddDbContext<ZeroDbContext>(op => op.UseMySql(appConfig.Zero.Connection));
         }
 
-        public void ConfigureDevelopmentServices(IServiceCollection services)
-        {
-            // Add things to the service collection that are only for the
-            // development environment.
-            services.AddGrpc(grpc => grpc.Interceptors.Add<HystrixCommandIntercept>());
-            var appConfig = new Application.Config.AppConfig();
-            services.AddDbContext<ZeroDbContext>(op => op.UseMySql(appConfig.Zero.Connection));
-        }
-
         public void ConfigureContainer(ContainerBuilder builder)
         {
             // Add things to the Autofac ContainerBuilder.
-            builder.AddCoreService().RegisterModules();
-        }
-
-        public void ConfigureProductionContainer(ContainerBuilder builder)
-        {
-            // Add things to the ContainerBuilder that are only for the
-            // production environment.
             builder.AddCoreService().RegisterModules();
         }
 
@@ -54,14 +38,6 @@ namespace Ketchup.Zero.Server
         {
             // Set up the application for development.
 
-            ServiceLocator.Current = app.ApplicationServices.GetAutofacRoot();
-            app.UseRouting();
-            app.UseKetchup();
-        }
-
-        public void ConfigureStaging(IApplicationBuilder app, ILoggerFactory loggerFactory)
-        {
-            // Set up the application for staging.
             ServiceLocator.Current = app.ApplicationServices.GetAutofacRoot();
             app.UseRouting();
             app.UseKetchup();
