@@ -4,6 +4,7 @@
 ### 一个基于RBAC的权限服务设计的服务
 
 文档：https://github.com/simple-gr/ketchup/wiki/zero
+设计说明：https://www.cnblogs.com/alangur/p/13328797.html
 
 登陆
 ![image](https://github.com/simple-gr/ketchup.zero/blob/master/images/login.png)
