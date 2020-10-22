@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper;
 using Grpc.Core;
 using Ketchup.Core.Attributes;
 using Ketchup.Core.Kong.Attribute;
@@ -21,11 +22,13 @@ namespace Ketchup.Zero.Application.Services.SysUser
     {
         private readonly IEfCoreRepository<SysRole, int> _role;
         private readonly IEfCoreRepository<Domain.SysUser, int> _sysUser;
+        private readonly IMapper _mapper;
 
-        public SysUserService(IEfCoreRepository<Domain.SysUser, int> sysUser, IEfCoreRepository<SysRole, int> role)
+        public SysUserService(IEfCoreRepository<Domain.SysUser, int> sysUser, IEfCoreRepository<SysRole, int> role, IMapper mapper)
         {
             _sysUser = sysUser;
             _role = role;
+            _mapper = mapper;
         }
 
         [KongRoute(Name = "sysUsers.PageSerachSysUser", Tags = new[] { "sysUser" },
@@ -72,7 +75,7 @@ namespace Ketchup.Zero.Application.Services.SysUser
             if (request.Id == 0)
             {
                 request.Password = request.Password.Get32MD5One();
-                data = _sysUser.Insert(request.MapTo<Domain.SysUser>());
+                data = _sysUser.Insert(_mapper.Map<Domain.SysUser>(request));
             }
             else
             {
@@ -85,7 +88,7 @@ namespace Ketchup.Zero.Application.Services.SysUser
                 data = _sysUser.Update(data);
             }
 
-            return Task.FromResult(data.MapTo<SysUserDto>());
+            return Task.FromResult(_mapper.Map<SysUserDto>(data));
         }
 
         [KongRoute(Name = "sysUsers.RemoveSysUser", Tags = new[] { "sysUser" },
@@ -122,7 +125,7 @@ namespace Ketchup.Zero.Application.Services.SysUser
 
         protected List<SysUserDto> ConvertToEntities(List<Domain.SysUser> entities)
         {
-            return entities.MapTo<List<SysUserDto>>();
+            return _mapper.Map<List<SysUserDto>>(entities);
         }
     }
 }

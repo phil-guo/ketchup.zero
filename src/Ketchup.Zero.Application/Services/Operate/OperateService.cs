@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper;
 using Grpc.Core;
 using Ketchup.Core.Attributes;
 using Ketchup.Core.Kong.Attribute;
@@ -22,11 +23,13 @@ namespace Ketchup.Zero.Application.Services.Operate
     {
         private readonly IEfCoreRepository<SysOperate, int> _operate;
         private readonly IRoleMenuRepos _roleMenu;
+        private readonly IMapper _mapper;
 
-        public OperateService(IEfCoreRepository<SysOperate, int> operate, IRoleMenuRepos roleMenu)
+        public OperateService(IEfCoreRepository<SysOperate, int> operate, IRoleMenuRepos roleMenu, IMapper mapper)
         {
             _operate = operate;
             _roleMenu = roleMenu;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -35,8 +38,8 @@ namespace Ketchup.Zero.Application.Services.Operate
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "operates.PageSerachOperate", Tags = new[] {"operate"},
-            Methods = new[] {"POST", "OPTIONS"}, Paths = new[] {"/zero/operates/PageSerachOperate"})]
+        [KongRoute(Name = "operates.PageSerachOperate", Tags = new[] { "operate" },
+            Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/operates/PageSerachOperate" })]
         [ServiceRoute(Name = "operates", MethodName = nameof(PageSerachOperate))]
         public override Task<OperatesResponse> PageSerachOperate(SearchOperate request, ServerCallContext context)
         {
@@ -55,7 +58,7 @@ namespace Ketchup.Zero.Application.Services.Operate
                 .Take(request.PageMax)
                 .ToList();
 
-            var date = new OperatesResponse {Total = total};
+            var date = new OperatesResponse { Total = total };
 
             ConvertToEntities(result).ForEach(item => { date.Datas.Add(item); });
 
@@ -68,8 +71,8 @@ namespace Ketchup.Zero.Application.Services.Operate
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "operates.CreateOrEditOperate", Tags = new[] {"operate"},
-            Methods = new[] {"POST", "OPTIONS"}, Paths = new[] {"/zero/operates/CreateOrEditOperate"})]
+        [KongRoute(Name = "operates.CreateOrEditOperate", Tags = new[] { "operate" },
+            Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/operates/CreateOrEditOperate" })]
         [ServiceRoute(Name = "operates", MethodName = nameof(CreateOrEditOperate))]
         public override Task<OperateDto> CreateOrEditOperate(OperateDto request, ServerCallContext context)
         {
@@ -82,7 +85,7 @@ namespace Ketchup.Zero.Application.Services.Operate
                 else
                     request.Unique = 10001;
 
-                data = _operate.Insert(request.MapTo<SysOperate>());
+                data = _operate.Insert(_mapper.Map<SysOperate>(request));
             }
             else
             {
@@ -92,7 +95,7 @@ namespace Ketchup.Zero.Application.Services.Operate
                 data = _operate.Update(data);
             }
 
-            return Task.FromResult(data.MapTo<OperateDto>());
+            return Task.FromResult(_mapper.Map<OperateDto>(data));
         }
 
         /// <summary>
@@ -101,8 +104,8 @@ namespace Ketchup.Zero.Application.Services.Operate
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "operates.GetMenuOfOperate", Tags = new[] {"operate"},
-            Methods = new[] {"POST", "OPTIONS"}, Paths = new[] {"/zero/operates/GetMenuOfOperate"})]
+        [KongRoute(Name = "operates.GetMenuOfOperate", Tags = new[] { "operate" },
+            Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/operates/GetMenuOfOperate" })]
         [ServiceRoute(Name = "operates", MethodName = nameof(GetMenuOfOperate))]
         public override Task<MenuOfOperateReponse> GetMenuOfOperate(MenuOfOperateRequest request,
             ServerCallContext context)
@@ -118,8 +121,8 @@ namespace Ketchup.Zero.Application.Services.Operate
             return Task.FromResult(idNos);
         }
 
-        [KongRoute(Name = "operates.RemoveOperate", Tags = new[] {"operate"},
-            Methods = new[] {"POST", "OPTIONS"}, Paths = new[] {"/zero/operates/RemoveOperate"})]
+        [KongRoute(Name = "operates.RemoveOperate", Tags = new[] { "operate" },
+            Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/operates/RemoveOperate" })]
         [ServiceRoute(Name = "operates", MethodName = nameof(RemoveOperate))]
         public override Task<RemoveResponse> RemoveOperate(RemoveRequest request, ServerCallContext context)
         {
@@ -154,7 +157,7 @@ namespace Ketchup.Zero.Application.Services.Operate
 
         protected List<OperateDto> ConvertToEntities(List<SysOperate> entities)
         {
-            return entities.MapTo<List<OperateDto>>();
+            return _mapper.Map<List<OperateDto>>(entities);
         }
     }
 }

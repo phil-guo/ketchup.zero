@@ -13,10 +13,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="KetchupCore" Version="0.1.1-preview1" />
-    <PackageReference Include="KetchupCore.Consul" Version="0.1.1-preview1" />
-    <PackageReference Include="KetchupCore.Grpc" Version="0.1.1-preview1" />
-    <PackageReference Include="KetchupCore.Profession" Version="0.1.1-preview1" />
+    <PackageReference Include="KetchupCore" Version="0.1.1-preview3" />
+    <PackageReference Include="KetchupCore.Consul" Version="0.1.1-preview3" />
+    <PackageReference Include="KetchupCore.Grpc" Version="0.1.1-preview3" />
+    <PackageReference Include="KetchupCore.Profession" Version="0.1.1-preview3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <!--<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.6.0" />-->
     <!--<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />-->
   </ItemGroup>

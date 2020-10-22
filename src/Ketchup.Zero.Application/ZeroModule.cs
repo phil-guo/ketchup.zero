@@ -21,7 +21,6 @@ namespace Ketchup.Zero.Application
     {
         public override void Initialize(KetchupPlatformContainer builder)
         {
-            Mapper.Initialize(cfg => cfg.AddProfile<PermissionProfile>());
             //builder.GetInstances<IKongNetProvider>().AddKongSetting();
         }
 
@@ -39,6 +38,10 @@ namespace Ketchup.Zero.Application
             builder.ContainerBuilder.RegisterType<ZeroDbContext>().As<IEfCoreContext>();
             builder.ContainerBuilder.RegisterType<ZeroUnitOfWork>().As<IEfUnitOfWork>();
             builder.ContainerBuilder.RegisterType<RoleMenuRepos>().As<IRoleMenuRepos>().InstancePerLifetimeScope();
+
+            var mapperConfig = new MapperConfiguration(e => e.AddProfile(new PermissionProfile()));
+            var mapper = mapperConfig.CreateMapper();
+            builder.ContainerBuilder.RegisterInstance(mapper).SingleInstance();
         }
     }
 }

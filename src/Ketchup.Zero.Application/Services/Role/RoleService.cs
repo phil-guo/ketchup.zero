@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper;
 using Grpc.Core;
 using Ketchup.Core.Attributes;
 using Ketchup.Core.Kong.Attribute;
@@ -23,13 +24,15 @@ namespace Ketchup.Zero.Application.Services.Role
         private readonly IEfCoreRepository<SysMenu, int> _menu;
         private readonly IEfCoreRepository<SysRole, int> _role;
         private readonly IRoleMenuRepos _roleMenu;
+        private readonly IMapper _mapper;
 
         public RoleService(IEfCoreRepository<SysRole, int> role, IRoleMenuRepos roleMenu,
-            IEfCoreRepository<SysMenu, int> menu)
+            IEfCoreRepository<SysMenu, int> menu, IMapper mapper)
         {
             _role = role;
             _roleMenu = roleMenu;
             _menu = menu;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -76,7 +79,7 @@ namespace Ketchup.Zero.Application.Services.Role
         [ServiceRoute(Name = "roles", MethodName = nameof(CreateOrEditRole))]
         public override Task<RoleDto> CreateOrEditRole(RoleDto request, ServerCallContext context)
         {
-            var role = request.MapTo<SysRole>();
+            var role = _mapper.Map<SysRole>(request);
 
             if (role.Id > 0)
             {
@@ -91,7 +94,7 @@ namespace Ketchup.Zero.Application.Services.Role
                 role = _role.Insert(role);
             }
 
-            return Task.FromResult(role.MapTo<RoleDto>());
+            return Task.FromResult(_mapper.Map<RoleDto>(role));
         }
 
         [KongRoute(Name = "roles.RemoveRole", Tags = new[] {"role"}, Methods = new[] {"POST", "OPTIONS"},
@@ -201,7 +204,7 @@ namespace Ketchup.Zero.Application.Services.Role
 
         protected List<RoleDto> ConvertToEntities(List<SysRole> entities)
         {
-            return entities.MapTo<List<RoleDto>>();
+            return _mapper.Map<List<RoleDto>>(entities);
         }
 
         #endregion

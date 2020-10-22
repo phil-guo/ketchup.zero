@@ -12,11 +12,11 @@
     }
   },
   "Zero": {
-    "Connection": "Data Source=192.168.180.55;port=3306;userid=root;password=qwe123QWE;database=ketchup_zero;Charset=utf8;"
+    "Connection": "Data Source=182.92.107.110;port=3306;userid=root;password=qwe123QWE;database=ketchup_zero;Charset=utf8;"
   },
   "Server": {
     "Name": "zero",
-    "Ip": "192.168.3.11",
+    "Ip": "127.0.0.1",
     "Port": "5004",
     "EnableHttp": true, //是否开启http
     "Security": {
@@ -26,7 +26,7 @@
     //"KongAddress": "192.168.190.114:8001" //网关kong 地址
   },
   "Consul": {
-    "ConnectionString": "192.168.180.55:8500",
+    "ConnectionString": "127.0.0.1:8500",
     "IsHealthCheck": true
   }
 }
