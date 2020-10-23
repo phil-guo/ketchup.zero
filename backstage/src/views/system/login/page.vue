@@ -83,8 +83,8 @@ export default {
 
       // 表单
       formLogin: {
-        username: "admin",
-        password: "123qwe"
+        username: "",
+        password: ""
       },
       // 表单校验
       rules: {
