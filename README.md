@@ -6,6 +6,8 @@
 
 ### 一个基于RBAC的权限服务设计的服务
 
+### 预览地址：http://182.92.107.110:8080/
+
 文档：https://github.com/simple-gr/ketchup/wiki/zero
 
 设计说明：https://www.cnblogs.com/alangur/p/13328797.html
