@@ -13,8 +13,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="KetchupCore" Version="0.1.1-preview3" />
-    <PackageReference Include="KetchupCore.Consul" Version="0.1.1-preview3" />
+    <PackageReference Include="KetchupCore" Version="0.1.1-preview5" />
+    <PackageReference Include="KetchupCore.Consul" Version="0.1.1-preview5" />
     <PackageReference Include="KetchupCore.Grpc" Version="0.1.1-preview3" />
     <PackageReference Include="KetchupCore.Profession" Version="0.1.1-preview3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />

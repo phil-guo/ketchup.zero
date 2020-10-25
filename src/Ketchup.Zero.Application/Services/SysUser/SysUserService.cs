@@ -31,9 +31,9 @@ namespace Ketchup.Zero.Application.Services.SysUser
             _mapper = mapper;
         }
 
-        [KongRoute(Name = "sysUsers.PageSerachSysUser", Tags = new[] { "sysUser" },
-            Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/sysUsers/PageSerachSysUser" })]
-        [ServiceRoute(Name = "sysUsers", MethodName = nameof(PageSerachSysUser))]
+        //[KongRoute(Name = "sysUsers.PageSerachSysUser", Tags = new[] { "sysUser" },
+        //    Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/sysUsers/PageSerachSysUser" })]
+        [ServiceRouter(Name = "sysUsers", MethodName = nameof(PageSerachSysUser))]
         public override Task<SearchSysUserResponse> PageSerachSysUser(SearchSysUser request, ServerCallContext context)
         {
             var query = _sysUser.GetAll().AsNoTracking();
@@ -63,9 +63,9 @@ namespace Ketchup.Zero.Application.Services.SysUser
             return Task.FromResult(date);
         }
 
-        [KongRoute(Name = "sysUsers.CreateOrEditSysUser", Tags = new[] { "sysUser" },
-            Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/sysUsers/CreateOrEditSysUser" })]
-        [ServiceRoute(Name = "sysUsers", MethodName = nameof(CreateOrEditSysUser))]
+        //[KongRoute(Name = "sysUsers.CreateOrEditSysUser", Tags = new[] { "sysUser" },
+        //    Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/sysUsers/CreateOrEditSysUser" })]
+        [ServiceRouter(Name = "sysUsers", MethodName = nameof(CreateOrEditSysUser))]
         public override Task<SysUserDto> CreateOrEditSysUser(SysUserDto request, ServerCallContext context)
         {
             if (request.Id == 1)
@@ -91,9 +91,9 @@ namespace Ketchup.Zero.Application.Services.SysUser
             return Task.FromResult(_mapper.Map<SysUserDto>(data));
         }
 
-        [KongRoute(Name = "sysUsers.RemoveSysUser", Tags = new[] { "sysUser" },
-            Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/sysUsers/RemoveSysUser" })]
-        [ServiceRoute(Name = "sysUsers", MethodName = nameof(RemoveSysUser))]
+        //[KongRoute(Name = "sysUsers.RemoveSysUser", Tags = new[] { "sysUser" },
+        //    Methods = new[] { "POST", "OPTIONS" }, Paths = new[] { "/zero/sysUsers/RemoveSysUser" })]
+        [ServiceRouter(Name = "sysUsers", MethodName = nameof(RemoveSysUser))]
         public override Task<RemoveResponse> RemoveSysUser(RemoveRequest request, ServerCallContext context)
         {
             var response = new RemoveResponse();
