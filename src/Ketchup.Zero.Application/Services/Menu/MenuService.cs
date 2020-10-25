@@ -41,9 +41,9 @@ namespace Ketchup.Zero.Application.Services.Menu
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "menus.PageSerachMenu", Paths = new[] { "/zero/menus/PageSerachMenu" },
-            Methods = new[] { "POST", "OPTIONS" }, Tags = new[] { "menu" })]
-        [ServiceRouter(Name = "menus", MethodName = nameof(PageSerachMenu))]
+        //[KongRoute(Name = "menus.PageSerachMenu", Paths = new[] { "/zero/menus/PageSerachMenu" },
+        //    Methods = new[] { "POST", "OPTIONS" }, Tags = new[] { "menu" })]
+        [ServiceRouter(Name = "menus", MethodName = nameof(PageSerachMenu),Description = "分页查询")]
         public override Task<MenutList> PageSerachMenu(SearchMenu request, ServerCallContext context)
         {
             var query = _menu.GetAll().AsNoTracking();
@@ -84,8 +84,8 @@ namespace Ketchup.Zero.Application.Services.Menu
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "menus.CreateOrEditMenu", Paths = new[] { "/zero/menus/CreateOrEditMenu" },
-            Methods = new[] { "POST", "OPTIONS" }, Tags = new[] { "menu" })]
+        //[KongRoute(Name = "menus.CreateOrEditMenu", Paths = new[] { "/zero/menus/CreateOrEditMenu" },
+        //    Methods = new[] { "POST", "OPTIONS" }, Tags = new[] { "menu" })]
         [ServiceRouter(Name = "menus", MethodName = nameof(CreateOrEditMenu))]
         public override Task<MenuDto> CreateOrEditMenu(CreateOrEditMenuRequest request, ServerCallContext context)
         {
@@ -119,8 +119,8 @@ namespace Ketchup.Zero.Application.Services.Menu
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "menus.GetMenusByRole", Paths = new[] { "/zero/menus/GetMenusByRole" },
-            Methods = new[] { "POST", "OPTIONS" }, Tags = new[] { "menu" })]
+        //[KongRoute(Name = "menus.GetMenusByRole", Paths = new[] { "/zero/menus/GetMenusByRole" },
+        //    Methods = new[] { "POST", "OPTIONS" }, Tags = new[] { "menu" })]
         [ServiceRouter(Name = "menus", MethodName = nameof(GetMenusByRole))]
         public override Task<MenusRoleReponse> GetMenusByRole(MenusRoleRequest request, ServerCallContext context)
         {
@@ -158,8 +158,8 @@ namespace Ketchup.Zero.Application.Services.Menu
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        [KongRoute(Name = "menus.GetMenusSetRole", Paths = new[] { "/zero/menus/GetMenusSetRole" },
-            Methods = new[] { "POST", "OPTIONS" }, Tags = new[] { "menu" })]
+        //[KongRoute(Name = "menus.GetMenusSetRole", Paths = new[] { "/zero/menus/GetMenusSetRole" },
+        //    Methods = new[] { "POST", "OPTIONS" }, Tags = new[] { "menu" })]
         [ServiceRouter(Name = "menus", MethodName = nameof(GetMenusSetRole))]
         public override Task<RoleMenuReponse> GetMenusSetRole(MenusRoleRequest request, ServerCallContext context)
         {
@@ -232,8 +232,8 @@ namespace Ketchup.Zero.Application.Services.Menu
             return Task.FromResult(result);
         }
 
-        [KongRoute(Name = "menus.RemoveMenu", Paths = new[] { "/zero/menus/RemoveMenu" },
-            Methods = new[] { "POST", "OPTIONS" }, Tags = new[] { "menu" })]
+        //[KongRoute(Name = "menus.RemoveMenu", Paths = new[] { "/zero/menus/RemoveMenu" },
+        //    Methods = new[] { "POST", "OPTIONS" }, Tags = new[] { "menu" })]
         [ServiceRouter(Name = "menus", MethodName = nameof(RemoveMenu))]
         public override Task<RemoveResponse> RemoveMenu(RemoveRequest request, ServerCallContext context)
         {
